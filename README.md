@@ -1,5 +1,4 @@
-# IOOS Compliance Checker
-
+# ESGF-QC
 This project is a QC framework that extends the IOOS Compliance Checker. We forked the IOOS Compliance Checker and are developing our own plugins to support specific checks relevant to our projects.
 
 ## Running the IOOS Compliance Checker
