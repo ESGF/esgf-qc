@@ -21,8 +21,11 @@ https://docs.google.com/spreadsheets/d/15LytNx3qE7mvuCpyFYAsGFFKqzmm1MH_BoApoqbm
 
 When contributing to this project, please follow these guidelines:
 
-* **Check for Existing Functions:** Before implementing a new check, please review the existing functions in the `ioos` compliance checker to see if there are any relevant functions that can be reused or adapted to avoid redundancy.
-* **Atomic Checks:**  Strive to make each check as atomic as possible, focusing on a single, specific aspect of compliance. This promotes code reusability and maintainability.
+* **Check for Existing Implementations:**
+    * **CF Convention:** Check the google sheet table and identify the checks already covered by the CF plugin in the IOOS Compliance Checker. This will prevent us from duplicating effort and ensure consistency.
+    * **IOOS CC Functions:** Before implementing a new check, please review the existing functions in the IOOS compliance checker to see if there are any relevant functions that can be reused or adapted to avoid redundancy.
+* **Atomic Checks:** Strive to make each check as atomic as possible, focusing on a single, specific aspect of compliance. This promotes code reusability and maintainability.
+* **Error Handling:** Use `try-except` blocks in your checks to handle potential errors gracefully and prevent the code from stopping unexpectedly.
 * **WCRP Plugins:** The checks you develop will be utilized in the scripts within the `wcrp` directory, which contains plugins for specific WCRP projects (e.g., CMIP6, CMIP7, CORDEX-CMIP6).
 * **Tests:** For every new check file created, please add a corresponding test file in the `tests` directory to ensure the functionality and correctness of your checks.
 
