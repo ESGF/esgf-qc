@@ -14,7 +14,7 @@ The checks are categorized into key areas, including :
 * **Data Plausibility:** Detecting outliers and ensuring values fall within expected ranges.
 * **General Checks:** Ensuring the overall structure, file integrity, and consistency between experiments.
 
-   For a detailed account of the QC checks identified during this review, we have compiled an inventory available in a Google Sheet. This document includes the categories, severity levels, and tools associated with each check. You can access the full inventory via the following link:
+   For a detailed account of the QC checks, we have compiled an inventory available in a Google Sheet. This document includes the categories, severity levels, and tools associated with each check. You can access the full inventory via the following link:
 https://docs.google.com/spreadsheets/d/15LytNx3qE7mvuCpyFYAsGFFKqzmm1MH_BoApoqbmLQk/edit?gid=1295657304#gid=1295657304
 
 ## Contribution Guidelines
