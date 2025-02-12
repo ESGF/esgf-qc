@@ -32,7 +32,7 @@ When contributing to this project, please follow these guidelines:
 
 ## Project Structure
 The project is structured as follows:  
-
+**Note:** The checks in the `/checks` directory are not exhaustive and new checks might be added as needed.
 
 ```plaintext
 📂 compliance_checker  # Core compliance checking logic and plugin system
@@ -96,4 +96,4 @@ The project is structured as follows:
 ├── cchecker.py  # CLI Entry Point (outside core package)
 ├── pyproject.toml  # Registers available plugins dynamically
 └── requirements.txt  # Dependencies
-**Note:** The checks in the `/checks` directory are not exhaustive and new checks might be added as needed.
+
