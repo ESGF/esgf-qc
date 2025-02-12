@@ -3,8 +3,8 @@ This project is a QC framework that extends the IOOS Compliance Checker. We fork
 
 ## Running the IOOS Compliance Checker
 To run the IOOS Compliance Checker, use the following command:  
-compliance-checker --test=''check''  ''ncfile_location''  
-Replace ''check'' with the name of the check suite you want to run (e.g., `cf:1.6`) and ''ncfile_location'' with the path to your netcdf file.
+compliance-checker --test=''check''  ''directory_path''  
+Replace ''check'' with the name of the check suite you want to run (e.g., `cf:1.6`) and ''directory_path'' with the path to your netcdf files.
 
 ## Quality Control Checks
 The checks are categorized into key areas, including :
@@ -24,13 +24,15 @@ When contributing to this project, please follow these guidelines:
 * **Check for Existing Implementations:**
     * **CF Convention:** Check the google sheet table and identify the checks already covered by the CF plugin in the IOOS Compliance Checker. This will prevent us from duplicating effort and ensure consistency.
     * **IOOS CC Functions:** Before implementing a new check, please review the existing functions in the IOOS compliance checker to see if there are any relevant functions that can be reused or adapted to avoid redundancy.
-* **Atomic Checks:** Strive to make each check as atomic as possible, focusing on a single, specific aspect of compliance. This promotes code reusability and maintainability.
+* **Atomic Checks:** Strive to make each check as small and atomic as possible, potentially only a few lines of code, focusing on a single, specific aspect of compliance. This promotes code reusability and maintainability.
 * **Error Handling:** Use `try-except` blocks in your checks to handle potential errors gracefully and prevent the code from stopping unexpectedly.
-* **WCRP Plugins:** The checks you develop will be utilized in the scripts within the `wcrp` directory, which contains plugins for specific WCRP projects (e.g., CMIP6, CMIP7, CORDEX-CMIP6).
+* **WCRP Plugins:** The checks you develop will be called in the project specific scripts under WCRP directory. If you're confident in your understanding of the implementation, you can directly act on the designated script and add your check call, otherwise you can mention it in the pull request and we can assist you in plugging it in.
 * **Tests:** For every new check file created, please add a corresponding test file in the `tests` directory to ensure the functionality and correctness of your checks.
 
 
 ## Project Structure
+The project is structured as follows:  
+
 
 ```plaintext
 📂 compliance_checker  # Core compliance checking logic and plugin system
@@ -61,9 +63,7 @@ When contributing to this project, please follow these guidelines:
 │   │   │   ├── check_time_gaps.py  # Checks for time gaps in a dataset
 │   │   │   ├── check_file_integrity.py  # Checks the integrity of files in a dataset
 │   │   ├── data_plausibility_checks  # Checks related to data plausibility
-│   │   │   ├── check_data_range.py  # Checks the range of data values
-│   │   │   ├── check_physical_plausibility.py  # Checks the physical plausibility of data values
-│   │   │   ├── check_outliers.py  # Checks for statistical outliers in data values
+│   │   │   ├── check_data_plausibility.py  # Checks the range of data values and outliers
 │   │   ├── time_checks  # Dedicated file for time-related checks
 │   │   │   ├── check_time_monotonicity.py  # Checks if the time variable is monotonic
 │   │   │   ├── check_time_uniqueness.py  # Checks if the time values are unique
@@ -96,3 +96,4 @@ When contributing to this project, please follow these guidelines:
 ├── cchecker.py  # CLI Entry Point (outside core package)
 ├── pyproject.toml  # Registers available plugins dynamically
 └── requirements.txt  # Dependencies
+**Note:** The checks in the `/checks` directory are not exhaustive and new checks might be added as needed.
