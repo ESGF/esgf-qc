@@ -90,8 +90,6 @@ The project is structured as follows:
 │   ├── base.py  # Defines scoring & severity levels
 │   ├── util.py  # Generic utility functions
 │   └── __init__.py  # Package entry
-│   ├── 📂 config (imported from external repo)
-│   └── publisher_config.yaml  # Change the weights according to the needs of publisher
 │   ├── 📂 tests  # Unit & integration tests
 ├── cchecker.py  # CLI Entry Point (outside core package)
 ├── pyproject.toml  # Registers available plugins dynamically
