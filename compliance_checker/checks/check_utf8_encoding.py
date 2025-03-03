@@ -1,6 +1,6 @@
 """
 check_utf8_encoding.py
-Ayoub NACHITE
+Author : NACHITE Ayoub ''IPSL''
 
 This module provides an atomic function to verify that all global
 and variable attributes in a netCDF dataset can be encoded in UTF-8.
