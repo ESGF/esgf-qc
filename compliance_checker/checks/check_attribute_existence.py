@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 check_attribute_existence.py
-Ayoub NACHITE
+Author : NACHITE Ayoub ''IPSL''
 
 
 This module provides an atomic check that verifies whether a specified attribute
