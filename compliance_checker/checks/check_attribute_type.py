@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-check_single_attribute_type.py
+check_attribute_type.py
 Author : NACHITE Ayoub (IPSL)
 
 An atomic check that verifies a single netCDF attribute (global or variable)
