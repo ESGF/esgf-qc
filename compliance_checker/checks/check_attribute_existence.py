@@ -24,6 +24,7 @@ def check_attribute_existence(
     If 'var_name' is specified, the check looks for 'attribute_name' in that 
     variable; otherwise, it checks for a global attribute of the same name.
 
+
     Parameters
     ----------
     ds : netCDF4.Dataset
@@ -45,8 +46,7 @@ def check_attribute_existence(
 
     Usage Example:
         from check_attribute_existence import check_attribute_existence
-        # Suppose ds is a netCDF4.Dataset. We ensure ds has
-        # the global attribute 'Conventions':
+       
         results = check_attribute_existence(ds, 'Conventions')
     """
     ctx = TestCtx(severity, "Attribute Existence Check (with try/except)")
@@ -56,7 +56,7 @@ def check_attribute_existence(
         try:
             value = ds.getncattr(attribute_name)
             # If getncattr succeeds, the attribute exists
-            ctx.assert_true(True)
+            ctx.assert_true(True, "")
         except AttributeError:
             # If an AttributeError is raised, the attribute doesn't exist
             ctx.assert_true(False, f"Global attribute '{attribute_name}' is missing.")
@@ -72,10 +72,11 @@ def check_attribute_existence(
             try:
                 value = variable.getncattr(attribute_name)
                 # If getncattr succeeds, the attribute exists
-                ctx.assert_true(True)
+                ctx.assert_true(True, "")
             except AttributeError:
                 ctx.assert_true(False, f"Attribute '{attribute_name}' missing in variable '{var_name}'.")
             except Exception as e:
                 ctx.assert_true(False, f"Error retrieving '{attribute_name}' in variable '{var_name}': {e}")
 
     return [ctx.to_result()]
+
