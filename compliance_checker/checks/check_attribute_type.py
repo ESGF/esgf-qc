@@ -4,13 +4,12 @@ check_single_attribute_type.py
 Author : NACHITE Ayoub (IPSL)
 
 An atomic check that verifies a single netCDF attribute (global or variable)
-has the correct Python type (e.g., str, int, float).
+has the correct Python type (e.g., str, int, float). 
 
-Usage (in  plugin):
+
+Usage (in your plugin):
   from check_single_attribute_type import check_single_attribute_type
 
-  # e.g. we want to check  if global attribute "Conventions"  is str:
-  results = check_single_attribute_type(ds, None, "Conventions", str)
 
 """
 
@@ -22,7 +21,7 @@ def check_single_attribute_type(
     attr_name,
     expected_type,
     severity=BaseCheck.MEDIUM
-)
+):
     """
     Verify that a single netCDF attribute has the Python type 'expected_type'.
     We assume a separate check deals with the attribute's existence, 
@@ -51,17 +50,14 @@ def check_single_attribute_type(
         - If it's missing or an error occurs, we skip (since existence is 
           supposedly handled elsewhere).
 
-    Slack context:
-      - netCDF4 auto-converts NC_* -> Python types.
-      - We just do isinstance(value, expected_type).
-      - For Fortran or strict NC_* checks, a separate approach might be needed.
+    
     """
     ctx = TestCtx(severity, "Single Attribute Type Check")
 
     def _type_assert(val, exp_type, desc):
         """Checks if val is an instance of exp_type, records pass/fail in ctx."""
         if isinstance(val, exp_type):
-            ctx.assert_true(True)
+            ctx.assert_true(True,"")
         else:
             ctx.assert_true(False,
                             f"{desc} is type {type(val).__name__}, expected {exp_type.__name__}")
@@ -76,11 +72,13 @@ def check_single_attribute_type(
             value = ds.variables[var_name].getncattr(attr_name)
             _type_assert(value, expected_type,
                          f"Variable '{var_name}' attribute '{attr_name}'")
+     
     except (AttributeError, KeyError):
         # If variable or attribute isn't found, we skip (no fail).
         # Because existence is supposed to be checked by a separate check.
         pass
     except Exception as e:
+        
         pass
 
     return [ctx.to_result()]
