@@ -11,14 +11,12 @@ We do include a try/except to avoid crashing if the attribute or variable
 isn't found, but we won't fail in that case (we'll just skip), since the 
 existence check is external.
 
-Usage (in your plugin):
+Usage (in  plugin):
   from check_single_attribute_type import check_single_attribute_type
 
-  # e.g. we want the global attribute "Conventions" to be str:
+  # e.g. we want to check  if global attribute "Conventions"  is str:
   results = check_single_attribute_type(ds, None, "Conventions", str)
 
-  # e.g. we want variable "time" attribute "units" to be int (hypothetical):
-  results = check_single_attribute_type(ds, "time", "units", int)
 """
 
 from compliance_checker.base import BaseCheck, TestCtx
@@ -88,7 +86,6 @@ def check_single_attribute_type(
         # Because existence is supposed to be checked by a separate check.
         pass
     except Exception as e:
-        # Any other unexpected error (I/O, etc.) -> skip or handle as you wish
         pass
 
     return [ctx.to_result()]
