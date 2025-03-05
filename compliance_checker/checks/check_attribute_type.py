@@ -4,12 +4,7 @@ check_single_attribute_type.py
 Author : NACHITE Ayoub (IPSL)
 
 An atomic check that verifies a single netCDF attribute (global or variable)
-has the correct Python type (e.g., str, int, float). We do NOT handle 
-existence here, as that is assumed to be done in a separate check.
-
-We do include a try/except to avoid crashing if the attribute or variable 
-isn't found, but we won't fail in that case (we'll just skip), since the 
-existence check is external.
+has the correct Python type (e.g., str, int, float).
 
 Usage (in  plugin):
   from check_single_attribute_type import check_single_attribute_type
@@ -27,7 +22,7 @@ def check_single_attribute_type(
     attr_name,
     expected_type,
     severity=BaseCheck.MEDIUM
-):
+)
     """
     Verify that a single netCDF attribute has the Python type 'expected_type'.
     We assume a separate check deals with the attribute's existence, 
