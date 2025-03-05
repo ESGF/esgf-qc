@@ -24,8 +24,6 @@ def check_attribute_existence(
     If 'var_name' is specified, the check looks for 'attribute_name' in that 
     variable; otherwise, it checks for a global attribute of the same name.
 
-    Includes a try/except block to illustrate error handling.
-
     Parameters
     ----------
     ds : netCDF4.Dataset
