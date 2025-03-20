@@ -1,18 +1,16 @@
 import itertools
 import os
+import posixpath
 import sys
+from functools import lru_cache
 from importlib.resources import files
 from pkgutil import get_data
+from typing import Union
 
-from functools import lru_cache
 import requests
 from cf_units import Unit
 from lxml import etree
-from netCDF4 import Variable, Dimension, Dataset, Group
-
-import posixpath
-
-from typing import Tuple, Union
+from netCDF4 import Dataset, Dimension, Group, Variable
 
 from compliance_checker.cfutil import units_convertible
 
@@ -210,7 +208,7 @@ class StandardNameTable:
             elif required and len(vals) == 0:
                 raise Exception(f"Required attr ({attrname}) not found")
 
-            return vals[0].text
+            return vals[0].text if len(vals) > 0 else None
 
     def __init__(self, cached_location=None):
         if cached_location:
@@ -410,23 +408,25 @@ def string_from_var_type(variable):
         )
 
 
-def get_possible_label_variable_dimensions(variable: Variable) -> Tuple[int, ...]:
+def get_possible_label_variable_dimensions(variable: Variable) -> tuple[int, ...]:
     """
     Return dimensions if non-char variable, or return variable dimensions
     without trailing dimension if char variable, treating it as a label variable.
     """
-    if variable.kind == "C" and len(variable.dimensions) > 0:
+    if variable.dtype.kind == "C" and len(variable.dimensions) > 0:
         return variable.dimensions[:-1]
     return variable.dimensions
 
 
-@lru_cache()
-def maybe_lateral_reference_variable_or_dimension(group: Union[Group, Dataset],
-                                                  name: str,
-                                                  reference_type: Union[Variable, Dimension]):
+@lru_cache
+def maybe_lateral_reference_variable_or_dimension(
+    group: Union[Group, Dataset],
+    name: str,
+    reference_type: Union[Variable, Dimension],
+):
 
     def can_lateral_search(name):
-        return (not name.startswith(".") and posixpath.split(name)[0] == "")
+        return not name.startswith(".") and posixpath.split(name)[0] == ""
 
     if reference_type == "variable":
         # first try to fetch any
@@ -441,12 +441,13 @@ def maybe_lateral_reference_variable_or_dimension(group: Union[Group, Dataset],
 
         # alphanumeric string by itself, not a relative or absolute
         # search by proximity
-        if (posixpath.split(name)[0] == "" and
-            not (name.startswith(".") or name.startswith("/"))):
+        if posixpath.split(name)[0] == "" and not (
+            name.startswith(".") or name.startswith("/")
+        ):
             group_traverse = group
             while group_traverse.parent:
                 group_traverse = group_traverse.parent
-                check_target = posixpath.join(group_traverse.path, name)
+                # check_target = posixpath.join(group_traverse.path, name)
                 try:
                     maybe_var = group_traverse[name]
                 except IndexError:
@@ -461,26 +462,35 @@ def maybe_lateral_reference_variable_or_dimension(group: Union[Group, Dataset],
             # perform lateral search if we aren't in the root group
 
 
-
 def reference_attr_variables(
     dataset: Dataset,
     attributes_string: str,
     split_by: str = None,
+    reference_type: str = "variable",
+    group: Union[Group, Dataset] = None,
 ):
     """
     Attempts to reference variables in the string, optionally splitting by
     a string
     """
+    references, errors = [], []
     if attributes_string is None:
-        return None
-    elif split_by is None:
-        return dataset.variables.get(
-            attributes_string,
-            VariableReferenceError(attributes_string),
-        )
-    else:
-        string_proc = attributes_string.split(split_by)
-        return [
-            dataset.variables.get(var_name, VariableReferenceError(var_name))
-            for var_name in string_proc
-        ]
+        return None, None
+    elif reference_type == "variable":
+        if split_by is None:
+            return_val = dataset.variables.get(
+                attributes_string,
+                VariableReferenceError(attributes_string),
+            )
+            if not isinstance(return_val, VariableReferenceError):
+                return return_val, None
+            else:
+                return None, return_val
+        else:
+            string_proc = attributes_string.split(split_by)
+            for var_name in string_proc:
+                if var_name in dataset.variables:
+                    references.append(dataset.variables[var_name])
+                else:
+                    errors.append(VariableReferenceError(var_name))
+            return references, errors

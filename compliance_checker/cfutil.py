@@ -10,6 +10,7 @@ from functools import lru_cache, partial
 from importlib.resources import files
 
 from cf_units import Unit
+from netCDF4 import Dataset
 
 _UNITLESS_DB = None
 _SEA_NAMES = None
@@ -241,6 +242,7 @@ def is_geophysical(nc, variable):
     return True
 
 
+@lru_cache
 def get_coordinate_variables(nc):
     """
     Returns a list of variable names that identify as coordinate variables.
@@ -260,6 +262,7 @@ def get_coordinate_variables(nc):
     coord_vars = []
     for dimension in nc.dimensions:
         if dimension in nc.variables:
+            # TODO: Handle string coordinate variables
             if nc.variables[dimension].dimensions == (dimension,):
                 coord_vars.append(dimension)
     return coord_vars
@@ -493,7 +496,11 @@ def get_latitude_variables(nc):
 
     # Then axis
     for variable in nc.get_variables_by_attributes(axis="Y"):
-        if variable.name not in latitude_variables:
+        if not (
+            variable.name in latitude_variables
+            or getattr(variable, "standard_name", None)
+            in {"projection_y_coordinate", "projection_y_angular_coordinate"}
+        ):
             latitude_variables.append(variable.name)
 
     check_fn = partial(
@@ -559,7 +566,11 @@ def get_longitude_variables(nc):
 
     # Then axis
     for variable in nc.get_variables_by_attributes(axis="X"):
-        if variable.name not in longitude_variables:
+        if not (
+            variable.name in longitude_variables
+            or getattr(variable, "standard_name", None)
+            in {"projection_x_coordinate", "projection_x_angular_coordinate"}
+        ):
             longitude_variables.append(variable.name)
 
     check_fn = partial(
@@ -905,29 +916,26 @@ def is_dataset_valid_ragged_array_repr_featureType(nc, feature_type: str):
     array structure. See inline comments.
     """
 
-    is_compound = False
-    if feature_type.lower() in {"timeseriesprofile", "trajectoryprofile"}:
-        is_compound = True
-        ftype = feature_type.lower().split("profile")[0]
-    else:
-        ftype = feature_type.lower()
-
     # regardless of if compound type or not, must have a cf_role
     # variable; if compound, this will be the first part of the
     # feature_type as we'll have to search for one with profile_id
     # regardless; if single feature type, cf_role must match that
     # featureType
     cf_role_vars = nc.get_variables_by_attributes(cf_role=lambda x: x is not None)
-    if (
-        not cf_role_vars
-        or (len(cf_role_vars) > 1 and not is_compound)
-        or (len(cf_role_vars) > 2 and is_compound)
-    ):
-        return False
+    is_compound = False
+    if feature_type.lower() in {"timeseriesprofile", "trajectoryprofile"}:
+        is_compound = True
+        ftype = feature_type.lower().split("profile")[0]
+        if len(cf_role_vars) > 2:
+            return False
+    else:
+        ftype = feature_type.lower()
+        if len(cf_role_vars) > 1 or not ftype:
+            return False
+
     cf_role_var = nc.get_variables_by_attributes(cf_role=f"{ftype}_id")[0]
-    if (
-        cf_role_var.cf_role.split("_id")[0].lower() != ftype
-    ):  # if cf_role_var returns None, this should raise an error?
+    # if cf_role_var returns None, this should raise an error?
+    if cf_role_var.cf_role.split("_id")[0].lower() != ftype:
         return False
 
     # now we'll check dimensions for singular feature types and/or
@@ -936,7 +944,7 @@ def is_dataset_valid_ragged_array_repr_featureType(nc, feature_type: str):
     if len(instance_dim) != 1:
         return False
 
-    # Wow we check for the presence of an index variable or count variable;
+    # Now we check for the presence of an index variable or count variable;
     # NOTE that if no index or count variables exist, we can't determine with
     # certainty that this is invalid, because single-instance data sets
     # are valid representations of the ragged array structures. Instead,
@@ -1021,6 +1029,23 @@ def is_dataset_valid_ragged_array_repr_featureType(nc, feature_type: str):
         return False
 
     return True
+
+
+def resolve_ragged_array_dimension(ds: Dataset):
+    # TODO: put in loop?
+    ragged_variable = ds.get_variables_by_attributes(
+        sample_dimension=lambda s: isinstance(s, str),
+    )
+    if ragged_variable:
+        ragged_type = "sample_dimension"
+    else:
+        ragged_variable = ds.get_variables_by_attributes(
+            instance_dimension=lambda s: isinstance(s, str),
+        )
+        ragged_type = "instance_dimension"
+    if ragged_variable is None:
+        raise ValueError("Could not find a ragged array related variable")
+    return ragged_type
 
 
 def is_variable_valid_ragged_array_repr_featureType(nc, variable: str) -> bool:
