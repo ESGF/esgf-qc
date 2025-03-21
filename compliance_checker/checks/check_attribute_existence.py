@@ -56,27 +56,27 @@ def check_attribute_existence(
         try:
             value = ds.getncattr(attribute_name)
             # If getncattr succeeds, the attribute exists
-            ctx.assert_true(True, "")
+            ctx.add_pass("")
         except AttributeError:
             # If an AttributeError is raised, the attribute doesn't exist
-            ctx.assert_true(False, f"Global attribute '{attribute_name}' is missing.")
+            ctx.add_failure(f"Global attribute '{attribute_name}' is missing.")
         except Exception as e:
             # Any other error that might occur unexpectedly
-            ctx.assert_true(False, f"Error retrieving global attribute '{attribute_name}': {e}")
+            ctx.add_failure(f"Error retrieving global attribute '{attribute_name}': {e}")
     else:
         # Checking attribute on a specific variable
         if var_name not in ds.variables:
-            ctx.assert_true(False, f"Variable '{var_name}' not found in dataset.")
+            ctx.add_failure(f"Variable '{var_name}' not found in dataset.")
         else:
             variable = ds.variables[var_name]
             try:
                 value = variable.getncattr(attribute_name)
                 # If getncattr succeeds, the attribute exists
-                ctx.assert_true(True, "")
+                ctx.add_pass("")
             except AttributeError:
-                ctx.assert_true(False, f"Attribute '{attribute_name}' missing in variable '{var_name}'.")
+                ctx.add_failure(f"Attribute '{attribute_name}' missing in variable '{var_name}'.")
             except Exception as e:
-                ctx.assert_true(False, f"Error retrieving '{attribute_name}' in variable '{var_name}': {e}")
+                ctx.add_failure(f"Error retrieving '{attribute_name}' in variable '{var_name}': {e}")
 
     return [ctx.to_result()]
 
