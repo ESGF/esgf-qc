@@ -57,7 +57,7 @@ def check_single_attribute_type(
     def _type_assert(val, exp_type, desc):
         """Checks if val is an instance of exp_type, records pass/fail in ctx."""
         if isinstance(val, exp_type):
-            ctx.add_pass(""))
+            ctx.add_pass("")
         else:
             ctx.add_failure(f"{desc} is type {type(val).__name__}, expected {exp_type.__name__}")
 
