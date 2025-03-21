@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 check_attribute_type.py
-Author : NACHITE Ayoub (IPSL)
+
 
 An atomic check that verifies a single netCDF attribute (global or variable)
 has the correct Python type (e.g., str, int, float). 
