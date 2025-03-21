@@ -42,9 +42,9 @@ def check_utf8_encoding(ds, severity=BaseCheck.MEDIUM):
         if isinstance(value, str):
             try:
                 value.encode("utf-8")
-                ctx.assert_true(True, "Passed UTF-8 check")
+                ctx.add_pass("Passed UTF-8 check")
             except UnicodeError:
-                ctx.assert_true(False, f"Global attribute '{attr}' is not valid UTF-8")
+                ctx.add_failure(f"Global attribute '{attr}' is not valid UTF-8")
     
     # Check attributes for each variable
     for var_name, var_obj in ds.variables.items():
@@ -53,9 +53,9 @@ def check_utf8_encoding(ds, severity=BaseCheck.MEDIUM):
             if isinstance(value, str):
                 try:
                     value.encode("utf-8")
-                    ctx.assert_true(True, "Passed UTF-8 check")
+                    ctx.add_pass, "Passed UTF-8 check")
                 except UnicodeError:
-                    ctx.assert_true(False, f"Variable '{var_name}' attribute '{attr}' is not valid UTF-8")
+                    ctx.add_failure(f"Variable '{var_name}' attribute '{attr}' is not valid UTF-8")
     
     return [ctx.to_result()]
 
