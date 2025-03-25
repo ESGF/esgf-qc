@@ -43,9 +43,6 @@ def check_variable_existence(
     """
     ctx = TestCtx(severity, f"{'' if check_id is None else f'[{check_id}] '}Variable Existence Check")
 
-    try:
-        ctx.assert_true(var_name in ds.variables, f"Variable '{var_name}' is missing")
-    except Exception as e:
-        ctx.assert_true(False, f"Error retrieving variable '{var_name}': {e}")
+    ctx.assert_true(var_name in ds.variables, f"Variable '{var_name}' is missing")
 
     return [ctx.to_result()]
