@@ -1,6 +1,6 @@
 import pytest
 
-from compliance_checker.checks.check_variable_existence import check_variable_existence
+from compliance_checker.checks.variable_checks.check_variable_existence import check_variable_existence
 
 TEST_CHECK_VARIABLE_EXISTENCE = [
     ("variable_exists", "checks_test_ds", "time", (1, 1)),
