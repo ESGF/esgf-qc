@@ -3,11 +3,15 @@ import pytest
 
 
 @pytest.fixture(scope="session")
-def checks_test_ds(tmp_path_factory):
-    path_to_file = tmp_path_factory.mktemp("testdata")
-    full_path = path_to_file / "checks_test_ds.nc"
+def variable_checks_tmp_path(tmp_path_factory, request):
+    return tmp_path_factory.mktemp(request.fixturename)
 
-    ds = netCDF4.Dataset(full_path, "w")
+
+@pytest.fixture(scope="session")
+def variable_checks_test_ds(variable_checks_tmp_path, request):
+    # Create test dataset
+    ds_path = variable_checks_tmp_path / (request.fixturename + ".nc")
+    ds = netCDF4.Dataset(ds_path, "w")
 
     # Dimensions
     ds.createDimension("time", None)
@@ -23,4 +27,4 @@ def checks_test_ds(tmp_path_factory):
 
     # Close to return dataset as readonly
     ds.close()
-    return netCDF4.Dataset(full_path)
+    return netCDF4.Dataset(ds_path)
