@@ -42,7 +42,7 @@ def check_utf8_encoding(ds, severity=BaseCheck.MEDIUM):
         if isinstance(value, str):
             try:
                 value.encode("utf-8")
-                ctx.add_pass("Passed UTF-8 check")
+                ctx.add_pass()
             except UnicodeError:
                 ctx.add_failure(f"Global attribute '{attr}' is not valid UTF-8")
     
@@ -53,7 +53,7 @@ def check_utf8_encoding(ds, severity=BaseCheck.MEDIUM):
             if isinstance(value, str):
                 try:
                     value.encode("utf-8")
-                    ctx.add_pass, "Passed UTF-8 check")
+                    ctx.add_pass()
                 except UnicodeError:
                     ctx.add_failure(f"Variable '{var_name}' attribute '{attr}' is not valid UTF-8")
     

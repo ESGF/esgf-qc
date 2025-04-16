@@ -56,7 +56,7 @@ def check_attribute_existence(
         try:
             value = ds.getncattr(attribute_name)
             # If getncattr succeeds, the attribute exists
-            ctx.add_pass("")
+            ctx.add_pass()
         except AttributeError:
             # If an AttributeError is raised, the attribute doesn't exist
             ctx.add_failure(f"Global attribute '{attribute_name}' is missing.")
@@ -72,7 +72,7 @@ def check_attribute_existence(
             try:
                 value = variable.getncattr(attribute_name)
                 # If getncattr succeeds, the attribute exists
-                ctx.add_pass("")
+                ctx.add_pass()
             except AttributeError:
                 ctx.add_failure(f"Attribute '{attribute_name}' missing in variable '{var_name}'.")
             except Exception as e:
