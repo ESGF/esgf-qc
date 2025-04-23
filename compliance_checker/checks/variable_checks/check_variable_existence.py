@@ -26,7 +26,7 @@ def check_variable_existence(
     severity : int, optional
         The severity level of this check (default: BaseCheck.MEDIUM).
     check_id : str, optional
-        A check identifier included in check messages, unless None.
+        A check identifier included in results, unless None.
         Default is None.
 
     Returns
@@ -41,8 +41,8 @@ def check_variable_existence(
 
         results = check_variable_existence(ds, 'time')
     """
-    ctx = TestCtx(severity, f"{'' if check_id is None else f'[{check_id}] '}Variable Existence Check")
+    ctx = TestCtx(severity, "Variable Existence Check", check_id=check_id)
 
-    ctx.assert_true(var_name in ds.variables, f"Variable '{var_name}' is missing")
+    ctx.assert_true(var_name in ds.variables, f"Variable '{var_name}' is missing.")
 
     return [ctx.to_result()]

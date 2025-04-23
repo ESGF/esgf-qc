@@ -1,31 +1,29 @@
-import pytest
-
-from compliance_checker.checks.variable_checks.check_variable_existence import check_variable_existence
-
-TEST_CHECK_VARIABLE_EXISTENCE = [
-    ("variable_exists", "variable_checks_test_ds", "time", (1, 1), []),
-    ("variable_does_not_exist", "variable_checks_test_ds", "novar", (0, 1), ["Variable 'novar' is missing"]),
-]
+from compliance_checker.checks.variable_checks import check_variable_existence as checker
+from compliance_checker.tests import BaseTestCase
+from compliance_checker.tests.resources import STATIC_FILES
 
 
-@pytest.mark.parametrize(
-    "test_id,ds_fixture_name,var_name,expected_value,expected_msgs",
-    TEST_CHECK_VARIABLE_EXISTENCE,
-    ids=[t[0] for t in TEST_CHECK_VARIABLE_EXISTENCE],
-)
-def test_check_variable_existence(request, test_id, ds_fixture_name, var_name, expected_value, expected_msgs):
-    # Use pytest built-in 'request' fixture to retrieve dataset fixture.
-    ds = request.getfixturevalue(ds_fixture_name)
+class TestVariableExistence(BaseTestCase):
 
-    # Produce result for current test input.
-    # Pass test_id as check_id.
-    results = check_variable_existence(ds, var_name, check_id=test_id)
+    def test_check_variable_exists(self):
+        dataset = self.load_dataset(STATIC_FILES["climatology"])
+        check_id = "variable_exists"
 
-    # Check against expected result.
-    assert len(results) == 1
-    assert results[0].name.endswith("Variable Existence Check")
-    assert results[0].msgs == expected_msgs
-    assert results[0].value == expected_value
-    if results[0].value[0] != results[0].value[1]:
-        # Failed result must have check_id (== test_id) in name
-        assert test_id in results[0].name
+        results = checker.check_variable_existence(dataset, "temperature", check_id=check_id)
+
+        assert len(results) == 1
+        self.assert_result_is_good(results[0])
+        assert results[0].check_id == check_id
+
+
+    def test_check_variable_exists_fails(self):
+        dataset = self.load_dataset(STATIC_FILES["climatology"])
+        check_id = "variable_does_not_exist"
+        var_name = "missing"
+
+        results = checker.check_variable_existence(dataset, var_name, check_id=check_id)
+
+        assert len(results) == 1
+        self.assert_result_is_bad(results[0])
+        assert results[0].check_id == check_id
+        assert results[0].msgs[0] == f"Variable '{var_name}' is missing."

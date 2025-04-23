@@ -248,6 +248,7 @@ class Result:
         checker=None,
         check_method=None,
         variable_name=None,
+        check_id=None,
     ):
         self.weight = weight
 
@@ -269,9 +270,11 @@ class Result:
         self.checker = checker
         self.check_method = check_method
         self.variable_name = variable_name
+        self.check_id = check_id
 
     def __repr__(self):
-        ret = f"{self.name} (*{self.weight}): {self.value}"
+        id_str = f" [{self.check_id}]" if self.check_id else ""
+        ret = f"{self.name}{id_str} (*{self.weight}): {self.value}"
 
         if len(self.msgs):
             if len(self.msgs) == 1:
@@ -295,6 +298,7 @@ class Result:
             "value": self.value,
             "msgs": self.msgs,
             "children": [i.serialize() for i in self.children],
+            "check_id": self.check_id,
         }
 
     def __eq__(self, other):
@@ -314,6 +318,7 @@ class TestCtx:
         score=0,
         messages=None,
         variable=None,
+        check_id=None,
     ):
         self.category = category or BaseCheck.LOW
         self.out_of = out_of
@@ -321,6 +326,7 @@ class TestCtx:
         self.messages = messages or []
         self.description = description or ""
         self.variable = variable
+        self.check_id = check_id
 
     def to_result(self):
         return Result(
@@ -329,6 +335,7 @@ class TestCtx:
             self.description,
             self.messages,
             variable_name=self.variable,
+            check_id=self.check_id,
         )
 
     def assert_true(self, test, message):
