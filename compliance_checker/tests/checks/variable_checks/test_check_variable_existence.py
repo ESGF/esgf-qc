@@ -4,7 +4,6 @@ from compliance_checker.tests.resources import STATIC_FILES
 
 
 class TestVariableExistence(BaseTestCase):
-
     def test_check_variable_exists(self):
         dataset = self.load_dataset(STATIC_FILES["climatology"])
         check_id = "variable_exists"
@@ -14,7 +13,6 @@ class TestVariableExistence(BaseTestCase):
         assert len(results) == 1
         self.assert_result_is_good(results[0])
         assert results[0].check_id == check_id
-
 
     def test_check_variable_exists_fails(self):
         dataset = self.load_dataset(STATIC_FILES["climatology"])

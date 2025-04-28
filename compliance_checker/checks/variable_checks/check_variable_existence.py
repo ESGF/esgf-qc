@@ -1,8 +1,6 @@
 """
 This module provides an atomic check that verifies whether a specified variable
-exists in a netCDF dataset, using a try/except block to handle potential errors.
-
-Intended to be included in the WCRP plugins.
+exists in a netCDF dataset.
 """
 
 from compliance_checker.base import BaseCheck, TestCtx
@@ -34,7 +32,7 @@ def check_variable_existence(
     List[Result]
         A list containing one Result object. The .value is a tuple
         (passed_assertions, total_assertions), and .msgs contains error messages
-        if the attribute is missing or cannot be retrieved.
+        if the variable is missing.
 
     Usage Example:
         from check_variable_existence import check_variable_existence
