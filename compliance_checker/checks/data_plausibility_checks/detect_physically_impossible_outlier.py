@@ -42,7 +42,7 @@ def get_lon_lat_time_dimensions(dataset):
                 
     if lon_dim is None or lat_dim is None or time_dim is None:
         raise ValueError("Could not determine longitude, latitude, or time dimensions.")
-    # Return the found dimensions or None if not found
+    
     return lon_dim, lat_dim, time_dim
 
 def get_thresholds_variable(dataset, thresholds_file):
@@ -79,10 +79,8 @@ def get_thresholds_variable(dataset, thresholds_file):
                 matching_vars.append(var_name)
                 standard_name = var.standard_name
 
-    # Check if any matching variables were found
     if not matching_vars:
         raise ValueError("No matching variables found in the dataset.")
-    # Check if more than one matching variable was found
     if len(matching_vars) > 1:
         raise ValueError("More than one matching variable found in the dataset.")
 
