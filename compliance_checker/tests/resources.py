@@ -94,6 +94,8 @@ STATIC_FILES = {
     ),
     "ocos": get_filename("tests/data/examples/ocos.cdl"),
     "ooi_glider": get_filename("tests/data/examples/ooi_glider.cdl"),
+    "physical_outliers_exist": get_filename("tests/data/physical_outliers_exist.nc"),
+    "physical_outliers_not_exist": get_filename("tests/data/physical_outliers_not_exist.nc"),
     "point": get_filename("tests/data/point.cdl"),
     "polygon_geometry": get_filename("tests/data/polygon_geometry.cdl"),
     "profile-orthogonal": get_filename("tests/data/profile-orthogonal.cdl"),
