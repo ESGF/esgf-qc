@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-check_dimension_size.py
+detect_physically_impossible_outlier.py
 
 Check if the specified netCDF dataset has physically impossible outliers.
 
