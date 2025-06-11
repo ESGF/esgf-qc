@@ -5,9 +5,9 @@ test_check_variable_lat.py
 Run latitude compliance checks on all test CDL/NC files defined in STATIC_FILES.
 
 Supports:
-- --filekey <key>       → Run only on one STATIC_FILES entry
-- --indir <folder>      → Run on all .cdl and .nc in a folder
-- Default (no args)     → Run on ALL entries in STATIC_FILES
+- --filekey <key>     : Run only on one STATIC_FILES entry
+- --indir <folder>    : Run on all .cdl and .nc in a folder
+- Default (no args)   : Run on ALL entries in STATIC_FILES
 """
 
 import argparse
