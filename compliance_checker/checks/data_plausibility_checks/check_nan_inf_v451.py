@@ -9,7 +9,7 @@ Intended to be included in the WCRP plugins.
 
 from compliance_checker.base import BaseCheck, TestCtx
 import numpy as np
-from utilities import (
+from compliance_checker.checks.data_plausibility_checks.utilities import (
     prepare_results_generic,
     format_example_coords,
     dump_data_file

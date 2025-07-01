@@ -13,7 +13,8 @@ class TestConstants(BaseTestCase):
     # NOMINAL TEST CASES
     def test_constants(self):
         dataset = self.load_dataset(STATIC_FILES["data_check_reference"])
-        output = checker.check_constants(dataset, severity=BaseCheck.MEDIUM)
+        variable="tas"
+        output = checker.check_constants(dataset,variable, severity=BaseCheck.MEDIUM)
         results = output.to_result()
         assert results is not None
         self.assert_result_is_good(results)
@@ -21,7 +22,9 @@ class TestConstants(BaseTestCase):
     # ERROR TEST CASES
     def test_constants_fails(self):
         dataset = self.load_dataset(STATIC_FILES["data_check_reference_constant"])
-        output = checker.check_constants(dataset, severity=BaseCheck.MEDIUM)
+        variable="tas"
+        output = checker.check_constants(dataset,variable, severity=BaseCheck.MEDIUM)
         results = output.to_result()
         assert results is not None
+        print(results)
         self.assert_result_is_bad(results)

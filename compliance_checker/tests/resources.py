@@ -56,6 +56,7 @@ STATIC_FILES = {
     "data_check_reference_inf":get_filename("tests/data/data_check_reference_inf.nc"),
     "data_check_reference_missing_values":get_filename("tests/data/data_check_reference_missing_values.nc"),
     "data_check_reference_nan":get_filename("tests/data/data_check_reference_nan.nc"),
+    "data_check_reference_chunksize":get_filename("tests/data/data_check_reference_chunksize.nc"),
     "dimensionless": get_filename("tests/data/dimensionless.cdl"),
     "duplicate_axis": get_filename("tests/data/duplicate_axis.cdl"),
     "dimension_order": get_filename("tests/data/dimension_order.cdl"),
