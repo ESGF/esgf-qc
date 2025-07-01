@@ -83,10 +83,8 @@ def check_chunk_size(dataset, severity=BaseCheck.MEDIUM):
                 case 1:
                     ctx.is_valid = True
                     ctx.add_failure(f"Chunk size of '{variable}' ({chunk_size}) is different from its length ({len_time}), but not too small.")
-                    # print(f'[WARNING] Chunk size of {variable} ({chunk_size}) is different from its length ({len_time}), but not too small.')
                 case 2:
                     ctx.is_valid = False
-                    ctx.add_failure(f"Chunk size of '{variable}' ({chunk_size}) is less than half its length ({len_time}), or not defined.")
-                    # print(f'[FAIL] Chunk size of {variable} ({chunk_size}) is less than half its length ({len_time}), or not defined.')
+                    ctx.add_failure(f"Chunk size of '{variable}' ({chunk_size}) is not defined.")
 
     return ctx
