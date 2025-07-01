@@ -13,15 +13,18 @@ class TestPhysOutliers(BaseTestCase):
 
     # NOMINAL TEST CASES
     def test_detect_physically_impossible_outlier(self):
-        dataset = self.load_dataset(STATIC_FILES["physical_outliers_not_exist"])
+        dataset = self.load_dataset(STATIC_FILES["data_check_reference"])
+        print(dataset)
+        print(dataset.variables["tas"][:])
         output = checker.check_outliers(dataset, severity=BaseCheck.MEDIUM)
         results = output.to_result()
+        print(results)
         assert results is not None
         self.assert_result_is_good(results)
 
     # ERROR TEST CASES
     def test_detect_physically_impossible_outlier_fails(self):
-        dataset = self.load_dataset(STATIC_FILES["physical_outliers_exist"])
+        dataset = self.load_dataset(STATIC_FILES["data_check_reference_outliers"])
         output = checker.check_outliers(dataset, severity=BaseCheck.MEDIUM)
         results = output.to_result()
         assert results is not None
