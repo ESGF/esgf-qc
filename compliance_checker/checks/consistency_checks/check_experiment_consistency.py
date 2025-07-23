@@ -12,7 +12,7 @@ except ImportError:
 
 def check_experiment_consistency(ds, severity, project_id="cmip6"):
     """
-    [CONS003] Checks if attributes are consistent with the 'experiment_id' from the ESGF CV.
+    [ATTR007] Checks if attributes are consistent with the 'experiment_id' from the ESGF CV.
     """
     fixed_check_id = "ATTR007"
     description = f"[{fixed_check_id}] Consistency: experiment_id vs other global attributes"

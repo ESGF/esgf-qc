@@ -28,6 +28,7 @@ from ..checks.consistency_checks.check_frequency_table_consistency import check_
 from ..checks.consistency_checks.check_drs_consistency import check_attributes_match_directory_structure, check_filename_matches_directory_structure
 from ..checks.consistency_checks.check_attributes_match_filename import check_filename_vs_global_attrs, _parse_filename_components
 
+
 # --- Esgvoc universe import---
 try:
     from esgvoc.api.universe import find_terms_in_data_descriptor
@@ -56,6 +57,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         self.project_name = "cmip6"
        
     def _load_project_config(self):
+        print("1")
         """Loads the TOML configuration file."""
         if not self.project_config_path or not os.path.exists(self.project_config_path):
             print(f"Warning: Configuration file path not set or file not found at {self.project_config_path}")
@@ -69,6 +71,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             print(f"Error parsing TOML configuration from {self.project_config_path}: {e}")
 
     def setup(self, ds):
+        print("2")
         """Loads the main configuration and the variable mapping file before running checks."""
         super().setup(ds)
         self._load_project_config()
@@ -77,21 +80,22 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         base_dir = os.path.dirname(self.project_config_path)
         mapping_filepath = os.path.join(base_dir, "mapping_variables.toml")
 
-        print(f"INFO: Loading variable mapping from: {mapping_filepath}")
+        
         try:
             with open(mapping_filepath, 'r') as f:
                 self.variable_mapping = toml.load(f).get('mapping_variables', {})
-                print(f"✅ Loaded variable mapping with {len(self.variable_mapping)} entries")
+                
         except FileNotFoundError:
-            print(f"⚠️ Mapping file '{mapping_filepath}' not found.")
+            print(f"Mapping file '{mapping_filepath}' not found.")
             self.variable_mapping = {}
         except Exception as e:
-            print(f"⚠️ Error while loading variable mapping: {e}")
+            print(f"Error while loading variable mapping: {e}")
             self.variable_mapping = {}
     
-    def check_drs_CV_from_config(self, ds):
+    def check_A_Drs_Vocabulary(self, ds):
+        
         """
-        Runs the DRS filename and directory path checks separately.
+        Runs the DRS filename and directory path checks separately against CV pattern
         """
         results = []
         if "drs_checks" not in self.config:
@@ -101,14 +105,14 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         severity = self.get_severity(config.get("severity"))
         project_id = "cmip6"
 
-        # Appel au premier check : nom de fichier
+        # Call filename CV check
         results.extend(check_drs_filename(
             ds=ds,
             severity=severity,
             project_id=project_id
         ))
 
-        # Appel au deuxième check : chemin du répertoire
+        # Call Drs CV check
         results.extend(check_drs_directory(
             ds=ds,
             severity=severity,
@@ -118,8 +122,8 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         return results
   
 
-    def check_all_attributes_from_config(self, ds):
-        
+    def check_B_Global_Variable_Attributes(self, ds):
+       
         #Orchestrates checks for both global and variable attributes from the TOML config#
    
         results = []
@@ -155,14 +159,11 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
 
 
-    def check_from_variable_registry(self, ds):
-        print("💥 DEBUG: Called check_from_variable_registry()")
+    def check_C_Variable_Registry(self, ds):
 
         results = []
         if "variable_registry_checks" not in self.config:
             return results
-
-        print("💥 DEBUG: Performing inline variable discovery...")
 
         if not ESG_VOCAB_AVAILABLE:
             ctx = TestCtx(BaseCheck.HIGH, "Variable Registry Discovery")
@@ -178,11 +179,9 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             return [ctx.to_result()]
 
         mapping_key = f"{table_id}.{variable_id}"
-        print(f"💥 DEBUG: Looking for key '{mapping_key}' in variable_mapping")
-        print(f"💥 DEBUG: Variable mapping keys: {list(self.variable_mapping.keys())[:5]} ...")
-
+        
         known_branded_variable = self.variable_mapping.get(mapping_key)
-        print(f"✅ DEBUG: Found expression for '{mapping_key}': {known_branded_variable}")
+        
         if not known_branded_variable:
             ctx = TestCtx(BaseCheck.HIGH, "Variable Registry Discovery")
             ctx.add_failure(f"No mapping found for '{mapping_key}'.")
@@ -213,14 +212,14 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
         # === Step 2: Launch checks using discovered info ===
         expected_dims = getattr(expected, 'dimensions', [])
-        print(f"💬 DEBUG: Raw expected_dims: {expected_dims}")
+       
 
         if not isinstance(expected_dims, list) or not all(isinstance(d, str) for d in expected_dims):
-            print(f"⚠️ Unexpected format for expected_dims: {expected_dims}")
+            print(f" Unexpected format for expected_dims: {expected_dims}")
             expected_dims = []
 
         if expected_dims:
-            print(f"INFO: Verifying required dimensions exist: {expected_dims}")
+            
             actual_dims = set(ds.dimensions.keys())
             actual_vars = set(ds.variables.keys())
 
@@ -239,10 +238,26 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                         dimension_name=matched_dim,
                         severity=self.get_severity("H")
                     ))
+                    results.extend(check_dimension_positive(
+                        ds=ds,
+                        dimension_name=matched_dim,
+                        severity=self.get_severity("H")
+                    )) 
+                    results.extend(check_variable_existence(
+                        ds=ds,
+                        var_name=matched_dim,
+                        severity=self.get_severity("H")
+                    ))
+                        
                 else:
                     # Special case: expected 'height2m' but actual variable is 'height'
                     if expected_dim.lower().startswith("height") and "height" in actual_vars:
-                        print(f"🔁 NOTE: Fallback: using variable 'height' for expected '{expected_dim}'")
+                        
+                        results.extend(check_dimension_existence(
+                            ds=ds,
+                            dimension_name='height',
+                            severity=self.get_severity("H")
+                        ))
                         results.extend(check_variable_existence(
                             ds=ds,
                             var_name='height',
@@ -250,18 +265,19 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                         ))
                     else:
                         # Final fallback: try the expected_dim as-is
-                        print(f"⚠️ WARNING: No match found for '{expected_dim}', trying as-is")
+                        print(f"WARNING: No match found for '{expected_dim}', trying as-is")
                         results.extend(check_dimension_existence(
                             ds=ds,
                             dimension_name=expected_dim,
                             severity=self.get_severity("H")
                         ))
-       # === Step 3: Check variable existence ===
+       # === Step 3: Check geophysical variable existence ===
             results.extend(check_variable_existence(
                 ds=ds,
                 var_name=variable_id,
                 severity=self.get_severity("H")
             ))
+           
 
             # === Step 4: Check variable attributes ===
             attribute_mapping = {
@@ -274,13 +290,13 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             for esg_key, netcdf_attr_name in attribute_mapping.items():
                 expected_val = getattr(expected, esg_key, None)
                 if expected_val:
-                    print(f"🔍 Checking attribute '{netcdf_attr_name}' == '{expected_val}'")
+                    
                     results.extend(check_attribute_suite(
                         ds=ds,
                         attribute_name=netcdf_attr_name,
                         severity=self.get_severity("H"),
                         expected_type="str",
-                        constraint=expected_val,  # ← direct match!
+                        constraint=expected_val,  
                         var_name=variable_id,
                         project_name=self.project_name
                     ))
@@ -291,9 +307,10 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
 
 
-    def check_drs_consistency_from_config(self, ds):
+    def check_D_Drs_Consistency(self, ds):
+        print("6")
         """
-        Runs the DRS consistency checks.
+        Runs the DRS consistency checks with Filename and Global Attributes
         """
         results = []
         if "drs_consistency_checks" not in self.config:
@@ -303,14 +320,14 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         severity = self.get_severity(config.get("severity"))
         project_id = "CMIP6"  
 
-        # CALL Check PATH001
+        # Call check PATH001
         results.extend(check_attributes_match_directory_structure(
             ds=ds,
             severity=severity,
             project_id=project_id
         ))
 
-        # Call Check PATH002
+        # Call check PATH002
         results.extend(check_filename_matches_directory_structure(
             ds=ds,
             severity=severity,
@@ -319,26 +336,46 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         
         return results
     
-    def check_frequency_consistency_from_config(self, ds):
+    def check_E_consistency_filename_from_config(self, ds):
+        
+        """
+        Runs Filename/Global_Attributes consistency checks defined in the TOML.
+        """
+        results = []
+        if "consistency_checks" not in self.config:
+            return results
+        
+        config = self.config.get('consistency_checks', {})
+
+        
+        if 'filename_vs_attributes' in config:
+            check_config = config['filename_vs_attributes']
+            results.extend(check_filename_vs_global_attrs(
+                ds=ds,
+                severity=self.get_severity(check_config.get('severity'))
+            ))
+
+        return results
+    
+    def check_F_frequency_consistency_from_config(self, ds):
         """
         Runs the frequency vs table_id consistency check.
         """
         results = []
-        # Vérifie si la section de configuration pour ce check existe
+        
         if "freq_table_id_consistency_checks" not in self.config:
             return results
-        # Récupère la configuration spécifique à ce check
+        
         check_config = self.config['freq_table_id_consistency_checks']
         severity = self.get_severity(check_config.get('severity'))
         
-        # Récupère la table de mapping
+        # Retrieves mapping table from config toml
         mapping = self.config.get('frequency_table_id_mapping', {})
         if not mapping:
-            # Si le mapping est absent, on ne peut pas faire le check.
-            # On pourrait retourner un skip_result ici.
+        
             return results
 
-        # Appelle le check atomique en lui passant le mapping
+        # Calls the atomic check by passing it the mapping
         results.extend(check_frequency_table_id_consistency(
             ds=ds,
             mapping=mapping,
@@ -347,31 +384,12 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         
         return results
     
-    def check_consistency_filename_from_config(self, ds):
-        """
-        Runs all consistency checks defined in the TOML.
-        """
-        results = []
-        if "consistency_checks" not in self.config:
-            return results
+    
+
+    def check_G_experiment_consistency(self, ds):
         
-        config = self.config.get('consistency_checks', {})
-
-        # --- Appel pour le check de cohérence nom de fichier vs attributs ---
-        if 'filename_vs_attributes' in config:
-            check_config = config['filename_vs_attributes']
-            results.extend(check_filename_vs_global_attrs(
-                ds=ds,
-                severity=self.get_severity(check_config.get('severity'))
-            ))
-
-        # ... (vous pouvez ajouter ici d'autres 'if' pour d'autres types de checks de cohérence)
-
-        return results
-
-    def check_experiment_consistency_from_config(self, ds):
         """
-        Runs all consistency checks defined in the TOML.
+        Runs experiment consistency checks defined in the TOML.
         """
         results = []
         if "consistency_checks" not in self.config:
@@ -380,9 +398,9 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         config = self.config.get('consistency_checks', {})
         project_id = "cmip6"
 
-        # ... (vos autres appels de checks de cohérence)
+        
 
-        # --- Appel pour le check de cohérence de l'experiment_id ---
+        # --- Call for experiment_id consistency check ---
         if 'experiment_details' in config:
             check_config = config['experiment_details']
             results.extend(check_experiment_consistency(
@@ -393,9 +411,10 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
         return results
     
-    def check_variantlabel_consistency_from_config(self, ds):
+    def check_H_variantlabel_consistency(self, ds):
+        
         """
-        Runs all consistency checks defined in the TOML.
+        Runs variant_label consistency checks defined in the TOML.
         """
         results = []
         if "consistency_checks" not in self.config:
@@ -403,7 +422,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
         config = self.config.get('consistency_checks', {})
 
-        # --- Appel pour le check de cohérence du variant_label ---
+        # --- Call for variant_label consistency check ---
         if 'variant_label' in config:
             check_config = config['variant_label']
             results.extend(check_variant_label_consistency(
@@ -413,8 +432,10 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             
         return results
     
-    def check_consistency_instit_source_from_config(self, ds):
-        
+    def check_I_consistency_institution_source(self, ds):
+        """
+        Runs institution/source consistency checks defined in the TOML.
+        """
         
         results = []
         if "consistency_checks" not in self.config:
@@ -422,7 +443,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         
         config = self.config.get('consistency_checks', {})
         project_id = "cmip6"
-
+        # --- Call for institution coherence check ---
         if 'institution_details' in config:
             check_config = config['institution_details']
             results.extend(check_institution_consistency(
@@ -431,7 +452,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                 project_id=project_id
             ))
 
-        # --- Appel pour le check de cohérence de la source ---
+        # --- Call for source coherence check ---
         if 'source_details' in config:
             check_config = config['source_details']
             results.extend(check_source_consistency(

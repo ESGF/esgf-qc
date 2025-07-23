@@ -30,7 +30,7 @@ def check_frequency_table_id_consistency(ds, mapping, severity):
             
             # If the table_id is not in our mapping, we can't check it.
             ctx.messages.append(f"No frequency mapping found for table_id '{table_id}'. Check skipped.")
-            ctx.add_pass() # On ne pénalise pas si notre config est incomplète
+            ctx.add_pass()
 
     except AttributeError as e:
         ctx.add_failure(f"Missing required attribute for check: {e}")

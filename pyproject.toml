@@ -54,6 +54,7 @@ entry-points."compliance_checker.suites"."ioos-1.2" = "compliance_checker.ioos:I
 entry-points."compliance_checker.suites"."ioos_sos" = "compliance_checker.ioos:IOOSBaseSOSCheck"
 entry-points."compliance_checker.suites"."wcrp_cmip6" = "compliance_checker.wcrp.wcrp_cmip6:Cmip6ProjectCheck"
 
+
 [tool.setuptools]
 packages = [
   "compliance_checker",
