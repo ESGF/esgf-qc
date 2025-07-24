@@ -62,11 +62,15 @@ def check_experiment_consistency(ds, severity, project_id="cmip6"):
         actual_parent_id = str(ds.getncattr("parent_experiment_id"))
         if expected_parent_id and actual_parent_id.lower() != expected_parent_id.lower():
             failures.append(f"Inconsistency for 'parent_experiment_id': CV expects '{expected_parent_id}', file has '{actual_parent_id}'.")
-
+        # Comparison of ‘sub_experiment_id’ (case insensitive)
+        expected_sub_experiment_id = getattr(reference_term, 'sub_experiment_id', [None])[0]
+        actual_expected_sub_experiment_id = str(ds.getncattr("sub_experiment_id"))
+        if expected_sub_experiment_id and actual_expected_sub_experiment_id.lower() != expected_sub_experiment_id.lower():
+            failures.append(f"Inconsistency for 'sub_experiment_id': CV expects '{expected_sub_experiment_id}', file has '{actual_expected_sub_experiment_id}'.")
         # Report results
         if not failures:
             ctx.add_pass()
-        else:
+        else:   
             for f in failures:
                 ctx.add_failure(f)
 

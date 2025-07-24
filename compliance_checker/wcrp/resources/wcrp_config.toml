@@ -10,7 +10,7 @@ project_version = "1.0"
 # Each entry defines:
 #   - severity: "H" (High) (Mandatory) , "M" (Medium) (Warning), or "L" (Low) (Optional) priority
 #   - expected_type: expected value type ("str", "int", "float")
-#   - constraint: used only when the attribute is not value-controlled by CMIP6 CV
+#   - constraint: used only when the attribute is not value-controlled by CMIP6 CV 
 # ------------------------------------------------------------------------------
 
 [drs_checks]
@@ -181,23 +181,6 @@ constraint = " "
 # ==============================================================================
 # == Checks for Dimension Values
 # ==============================================================================
-[dimension_value_checks] # Utilisation d'une table, pas d'une liste de tables
-
-  [dimension_value_checks.plev]
-  check_type = "is_positive"
-  severity = "H"
-
-  [dimension_value_checks.lat]
-  check_type = "is_positive"
-  severity = "H"
-
-  [dimension_value_checks.lon]
-  check_type = "is_positive"
-  severity = "H"
-
-  [dimension_value_checks.bnds]
-  check_type = "is_positive"
-  severity = "H"
 
 # ==============================================================================
 # == Consistency Checks

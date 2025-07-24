@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# esgf-qc/compliance_checker/checks/consistency_checks/check_cmip6_consistency.py
+# esgf-qc/compliance_checker/checks/consistency_checks/check_institution_source_consistency.py
 from compliance_checker.base import TestCtx
 
 # Import the esgvoc library, handling the case where it is not installed

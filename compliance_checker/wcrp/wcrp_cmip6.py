@@ -27,7 +27,7 @@ from ..checks.consistency_checks.check_variant_label_consistency import check_va
 from ..checks.consistency_checks.check_frequency_table_consistency import check_frequency_table_id_consistency
 from ..checks.consistency_checks.check_drs_consistency import check_attributes_match_directory_structure, check_filename_matches_directory_structure
 from ..checks.consistency_checks.check_attributes_match_filename import check_filename_vs_global_attrs, _parse_filename_components
-
+from ..checks.time_checks.check_time_bounds import check_time_bounds
 
 # --- Esgvoc universe import---
 try:
@@ -57,7 +57,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         self.project_name = "cmip6"
        
     def _load_project_config(self):
-        print("1")
+    
         """Loads the TOML configuration file."""
         if not self.project_config_path or not os.path.exists(self.project_config_path):
             print(f"Warning: Configuration file path not set or file not found at {self.project_config_path}")
@@ -71,7 +71,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             print(f"Error parsing TOML configuration from {self.project_config_path}: {e}")
 
     def setup(self, ds):
-        print("2")
+        
         """Loads the main configuration and the variable mapping file before running checks."""
         super().setup(ds)
         self._load_project_config()
@@ -92,7 +92,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             print(f"Error while loading variable mapping: {e}")
             self.variable_mapping = {}
     
-    def check_A_Drs_Vocabulary(self, ds):
+    def check_Drs_Vocabulary(self, ds):
         
         """
         Runs the DRS filename and directory path checks separately against CV pattern
@@ -122,7 +122,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         return results
   
 
-    def check_B_Global_Variable_Attributes(self, ds):
+    def check_Global_Variable_Attributes(self, ds):
        
         #Orchestrates checks for both global and variable attributes from the TOML config#
    
@@ -159,7 +159,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
 
 
-    def check_C_Variable_Registry(self, ds):
+    def check_Variable_Registry(self, ds):
 
         results = []
         if "variable_registry_checks" not in self.config:
@@ -253,11 +253,6 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                     # Special case: expected 'height2m' but actual variable is 'height'
                     if expected_dim.lower().startswith("height") and "height" in actual_vars:
                         
-                        results.extend(check_dimension_existence(
-                            ds=ds,
-                            dimension_name='height',
-                            severity=self.get_severity("H")
-                        ))
                         results.extend(check_variable_existence(
                             ds=ds,
                             var_name='height',
@@ -300,15 +295,18 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                         var_name=variable_id,
                         project_name=self.project_name
                     ))
-
+            results.extend(check_time_bounds(
+                ds=ds,
+                severity=self.get_severity("H")
+            ))
             return results
 
         
 
 
 
-    def check_D_Drs_Consistency(self, ds):
-        print("6")
+    def check_Drs_Consistency(self, ds):
+        
         """
         Runs the DRS consistency checks with Filename and Global Attributes
         """
@@ -336,7 +334,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
         
         return results
     
-    def check_E_consistency_filename_from_config(self, ds):
+    def check_consistency_filename_from_config(self, ds):
         
         """
         Runs Filename/Global_Attributes consistency checks defined in the TOML.
@@ -357,7 +355,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
         return results
     
-    def check_F_frequency_consistency_from_config(self, ds):
+    def check_frequency_consistency_from_config(self, ds):
         """
         Runs the frequency vs table_id consistency check.
         """
@@ -386,7 +384,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
     
     
 
-    def check_G_experiment_consistency(self, ds):
+    def check_experiment_consistency(self, ds):
         
         """
         Runs experiment consistency checks defined in the TOML.
@@ -411,7 +409,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
 
         return results
     
-    def check_H_variantlabel_consistency(self, ds):
+    def check_variantlabel_consistency(self, ds):
         
         """
         Runs variant_label consistency checks defined in the TOML.
@@ -432,7 +430,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             
         return results
     
-    def check_I_consistency_institution_source(self, ds):
+    def check_consistency_institution_source(self, ds):
         """
         Runs institution/source consistency checks defined in the TOML.
         """
