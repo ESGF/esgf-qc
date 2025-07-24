@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#esgf-qc/compliance_checker/checks/dimension_checks/check_dimension_existence.py
 """
 check_dimension_existence.py
 

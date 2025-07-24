@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # esgf-qc/compliance_checker/checks/dimension_checks/check_dimension_positive.py
 
 from compliance_checker.base import BaseCheck, TestCtx

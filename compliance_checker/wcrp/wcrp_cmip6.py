@@ -18,16 +18,19 @@ from .wcrp_base import WCRPBaseCheck
 from netCDF4 import Dataset
 from ..checks.consistency_checks.check_experiment_consistency import *
 from ..checks.variable_checks.check_variable_existence import check_variable_existence
+from ..checks.variable_checks.check_variable_shape_vs_dimensions import check_variable_shape
 from ..checks.consistency_checks.check_drs_filename_cv import *
 from ..checks.consistency_checks.check_institution_source_consistency import *
 from ..checks.attribute_checks.check_attribute_suite import check_attribute_suite
 from ..checks.dimension_checks.check_dimension_positive import check_dimension_positive
 from ..checks.dimension_checks.check_dimension_existence import check_dimension_existence
+from ..checks.dimension_checks.check_dimension_size import *
 from ..checks.consistency_checks.check_variant_label_consistency import check_variant_label_consistency
 from ..checks.consistency_checks.check_frequency_table_consistency import check_frequency_table_id_consistency
 from ..checks.consistency_checks.check_drs_consistency import check_attributes_match_directory_structure, check_filename_matches_directory_structure
 from ..checks.consistency_checks.check_attributes_match_filename import check_filename_vs_global_attrs, _parse_filename_components
 from ..checks.time_checks.check_time_bounds import check_time_bounds
+from ..checks.time_checks.check_time_range_vs_filename import *
 
 # --- Esgvoc universe import---
 try:
@@ -295,11 +298,67 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                         var_name=variable_id,
                         project_name=self.project_name
                     ))
-            results.extend(check_time_bounds(
+           
+            
+            
+                
+        # === Step 5 : Check remaining dimensions and variables that were not expected ===
+        "Check remaining dimensions that were not expected (bnds/vertices/axis_nbounds..."
+        already_checked_dims = set(expected_dims)
+        all_dims = set(ds.dimensions.keys())
+        remaining_dims = all_dims - already_checked_dims
+        already_checked_vars  = set(expected_dims + [variable_id])
+        remaining_vars = set(ds.variables.keys()) - already_checked_vars
+        for dim in sorted(remaining_dims):
+            results.extend(check_dimension_existence(
                 ds=ds,
-                severity=self.get_severity("H")
+                dimension_name=dim,
+                severity=self.get_severity("H")  
             ))
-            return results
+
+        for var in sorted(remaining_vars):
+            results.extend(check_variable_existence(
+                ds=ds,
+                var_name=var,
+                severity=self.get_severity("H")  
+            ))
+    # === Step 6: Shape verification for variables ===
+        print("\n[DEBUG] === Shape Check ===")
+        all_expected_vars = expected_dims + [variable_id]
+        all_vars_checked = set()
+
+        # Universe Variable checks 
+        for var_name in sorted(set(all_expected_vars)):
+            if var_name in ds.variables:
+                print(f"[DEBUG] Checking expected var: {var_name}")
+                results.extend(check_variable_shape(var_name, ds, severity=self.get_severity("H")))
+                all_vars_checked.add(var_name)
+
+        # Remaining Variables size checks
+        for var_name in sorted(remaining_vars):
+            if var_name not in all_vars_checked:
+                print(f"[DEBUG] Checking remaining var: {var_name}")
+                results.extend(check_variable_shape(var_name, ds, severity=self.get_severity("H")))
+                all_vars_checked.add(var_name)
+        
+    # === Step 7 : Size bounds and vertices Checks ====
+            
+        for dim in remaining_dims:
+            if dim in ["bnds","axis_nbounds"]:
+                results.extend(check_dimension_size_is_equals_to(ds, dimension_name=dim, expected_size=2, severity=self.get_severity("H")))
+        
+        for dim in remaining_dims:
+            if dim in ["vertices","nv4"]:
+                results.extend(check_dimension_size_is_equals_to(ds, dimension_name=dim, expected_size=4, severity=self.get_severity("H")))
+    
+    # === Step 8 : Time Checks if time exists ====
+        for var in already_checked_vars:
+            if var in ["time"]:
+                results.extend(check_time_range_vs_filename(ds, severity=self.get_severity("H"))) 
+                results.extend(check_time_bounds(ds,severity=self.get_severity("H")))
+                  
+        return results
+
 
         
 

@@ -5,10 +5,9 @@ from ..consistency_checks.check_attributes_match_filename import _parse_filename
 
 def check_time_range_vs_filename(ds, severity=BaseCheck.MEDIUM):
     """
-    Check if the time axis in the dataset fully covers the time range declared in the filename.
-.
+    check time range in filename consistency with time range in the time variable
     """
-    check_id = "ZZZZ"
+    check_id = "VAR010"
     ctx = TestCtx(severity, f"[{check_id}] Check Time Range Filename")
 
     if "time" not in ds.variables:
@@ -54,8 +53,8 @@ def check_time_range_vs_filename(ds, severity=BaseCheck.MEDIUM):
         last = time_dates[-1]
         start_ym = (first.year, first.month)
         end_ym = (last.year, last.month)
-        print(f"[DEBUG] Time axis range: {start_ym[0]:04d}-{start_ym[1]:02d} to {end_ym[0]:04d}-{end_ym[1]:02d}")
-        print(f"[DEBUG] Filename range: {start_str} to {end_str}")
+
+        
     except Exception as e:
         ctx.add_failure(f"Error interpreting datetime objects: {e}")
         return [ctx.to_result()]

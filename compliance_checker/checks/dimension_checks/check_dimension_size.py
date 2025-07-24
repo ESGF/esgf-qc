@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#esgf-qc/compliance_checker/checks/dimension_checks/check_dimension_size.py
 """
 check_dimension_size.py
 
@@ -36,7 +37,8 @@ def check_dimension_size_is_equals_to(
             (passed_assertions, total_assertions), and .msgs contains error messages
             if the dimension is missing or cannot be retrieved.
     """
-    ctx = TestCtx(severity, "Dimension size equals check (with try/except)")
+    check_id = "DIM003"
+    ctx = TestCtx(severity, f"[{check_id}] Dimension Size Check: '{dimension_name}'")
 
     dim_size = ds.dimensions[dimension_name].size  # no check of value existence, it must be done elsewhere
     if dim_size != expected_size:

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# esgf-qc/compliance_checker/checks/attribute_checks/check_attribute_suite.py
 
 from compliance_checker.base import BaseCheck, Result, TestCtx
 import numpy as np
