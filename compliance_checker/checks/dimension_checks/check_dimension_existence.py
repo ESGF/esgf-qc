@@ -5,7 +5,6 @@ check_dimension_existence.py
 
 Check if a specified dimension exists in a netCDF dataset.
 
-Intended to be included in the WCRP plugins.
 """
 
 from compliance_checker.base import BaseCheck, TestCtx

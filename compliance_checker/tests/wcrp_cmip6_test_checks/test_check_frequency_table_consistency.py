@@ -16,7 +16,7 @@ class TestCheckFrequencyTableConsistency(BaseTestCase):
     def test_check_frequency_table_id_consistency(self):
         file_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
-            "..", "..", "data", "CMIP", "IPSL", "IPSL-CM5A2-INCA",
+            "..", "..", "data", "CMIP6", "CMIP", "IPSL", "IPSL-CM5A2-INCA",
             "historical", "r1i1p1f1", "Amon", "pr", "gr", "v20240619",
             "pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc"
         ))
@@ -29,5 +29,6 @@ class TestCheckFrequencyTableConsistency(BaseTestCase):
         dataset = Dataset(file_path, mode="r")
         results = checker.check_frequency_table_id_consistency(dataset, mapping_file, severity=BaseCheck.MEDIUM)
         assert len(results) == 1
-        self.assert_result_is_good_or_bad(results[0])
+        for res in results:
+            self.assert_result_is_good(res) 
 

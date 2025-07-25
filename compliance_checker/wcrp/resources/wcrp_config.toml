@@ -25,7 +25,6 @@ expected_type = "str"
 severity = "M"
 expected_type = "str"
 
-
 [global_attributes.data_specs_version]
 severity = "M"
 expected_type = "str"
@@ -34,7 +33,6 @@ expected_type = "str"
 severity = "M"
 expected_type = "str"
 constraint = " "
-
 [global_attributes.experiment_id]
 severity = "H"
 expected_type = "str"
@@ -182,7 +180,9 @@ constraint = " "
 # ==============================================================================
 # == Checks for Dimension Values
 # ==============================================================================
-
+#To activate Variable regisrty checks
+[variable_registry_checks]
+severity = "H"
 # ==============================================================================
 # == Consistency Checks
 # ==============================================================================
@@ -205,10 +205,6 @@ constraint = " "
   [consistency_checks.source_details]
   severity = "H"
 
-
-# Section pour activer les checks basés sur le registre
-[variable_registry_checks]
-severity = "H"
 
 
 # ==============================================================================
