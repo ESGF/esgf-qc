@@ -19,23 +19,6 @@ def check_dimension_size_is_equals_to(
     """
         Verify if the dimension has the expected size.
 
-        Parameters
-        ----------
-        ds : netCDF4.Dataset
-            An already open netCDF dataset.
-        dimension_name : str
-            The name of the dimension to check.
-        expected_size :
-            Dimension size must be equal to the expected size.
-        severity : int, optional
-            The severity level of this check (default: BaseCheck.MEDIUM).
-
-        Returns
-        -------
-        List[Result]
-            A list containing one Result object. The .value is a tuple
-            (passed_assertions, total_assertions), and .msgs contains error messages
-            if the dimension is missing or cannot be retrieved.
     """
     check_id = "DIM003"
     ctx = TestCtx(severity, f"[{check_id}] Dimension Size Check: '{dimension_name}'")
@@ -76,7 +59,8 @@ def check_dimension_size_is_strictly_greater_than(
             (passed_assertions, total_assertions), and .msgs contains error messages
             if the dimension is missing or cannot be retrieved.
     """
-    ctx = TestCtx(severity, "Dimension size strictly greater than check (with try/except)")
+    check_id = "DIM003"
+    ctx = TestCtx(severity, f"[{check_id}] Dimension Size is greather than '{lower_bound}': '{dimension_name}'")
 
     dim_size = ds.dimensions[dimension_name].size  # no check of value existence, it has to be done elsewhere
     if dim_size < lower_bound:

@@ -13,14 +13,7 @@ from compliance_checker.base import BaseCheck, TestCtx
 
 def check_time_bounds(ds, severity=BaseCheck.MEDIUM):
     """
-    Parameters
-    ----------
-    ds : netCDF4.Dataset
-    severity : int
-
-    Returns
-    -------
-    List[Result]
+    
     """
     check_id = "WWWWW"
     ctx = TestCtx(severity, f"[{check_id}] Check Time bounds")
@@ -30,7 +23,7 @@ def check_time_bounds(ds, severity=BaseCheck.MEDIUM):
 
     time_var = ds.variables["time"]
 
-    # --- Is there a bounds attribute? ------------------------------------
+    
     bnds_name = getattr(time_var, "bounds", None)
     if bnds_name is None or bnds_name not in ds.variables:
         # Presence of bounds is checked elsewhere – we are only interested

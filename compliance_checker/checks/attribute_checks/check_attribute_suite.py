@@ -80,19 +80,29 @@ def check_attribute_suite(
             utf8_ctx.add_failure("Attribute contains non-UTF-8 characters.")
         all_results.append(utf8_ctx.to_result())
 
-    # --- Check 4: Vocabulary or Regex Check(ATTR004) ---
+    # --- Check 4: Vocabulary ( Esgvoc/Universe ) or Regex Check(ATTR004) ---
+    MULTI_TERM_ATTRIBUTES = {"source_type", "realm", "activity_id"}
     if constraint is None and isinstance(attr_value, str) and expected_type == "str" and project_name:
         vocab_ctx = TestCtx(severity, label("ATTR004", "ESGVOC Vocabulary Check"))
         try:
-            is_valid = voc.valid_term_in_collection(
-                value=attr_value,
-                project_id=project_name,
-                collection_id=attribute_name
-            )
-            if is_valid:
+            if attribute_name in MULTI_TERM_ATTRIBUTES:
+                values_to_check = attr_value.strip().split()
+            else:
+                values_to_check = [attr_value]
+            invalid_values = []                       
+
+            for val in values_to_check:
+                if not voc.valid_term_in_collection(       
+                    value=val,
+                    project_id=project_name,
+                    collection_id=attribute_name
+                ):
+                    invalid_values.append(val)   
+            if not invalid_values:
                 vocab_ctx.add_pass()
             else:
-                vocab_ctx.add_failure(f"Value '{attr_value}' is not valid in collection '{attribute_name}' for project '{project_name}'.")
+                vocab_ctx.add_failure(f"Value(s) {invalid_values} are not valid in collection '{attribute_name}' for project '{project_name}'.")
+        
         except Exception as e:
             vocab_ctx.add_failure(f"Vocabulary validation failed: {str(e)}")
         all_results.append(vocab_ctx.to_result())

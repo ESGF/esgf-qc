@@ -1,7 +1,8 @@
 from compliance_checker.base import BaseCheck, TestCtx, Result
 
 def check_variable_shape(var_name, ds, severity):
-    ctx = TestCtx(severity, f"[VAR010]Shape check for '{var_name}'")
+    check_id = "VAR010"
+    ctx = TestCtx(severity, f"[{check_id}] Shape check for '{var_name}'")
     try:
         var = ds.variables[var_name]
         dims = var.dimensions

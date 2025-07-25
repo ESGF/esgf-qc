@@ -47,7 +47,7 @@ def _get_drs_facets(filepath, project_id="CMIP6"):
 # ==============================================================================
 # == CHECK 1 : Check if DRS match Global Attributes
 # ==============================================================================
-def check_attributes_match_directory_structure(ds, severity, project_id="CMIP6"):
+def check_attributes_match_directory_structure(ds, severity, project_id="cmip6"):
     """
     [PATH001] Checks if global attributes match the DRS directory structure.
     """

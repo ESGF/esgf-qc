@@ -23,14 +23,14 @@ def check_experiment_consistency(ds, severity, project_id="cmip6"):
         return [ctx.to_result()]
 
     try:
-        # 1. Read experiment_id from NetCDF file
+        # Read experiment_id from NetCDF file
         experiment_id_from_file = ds.getncattr("experiment_id")
 
 
         # Force conversion to standard Python string to be sure
         experiment_id_str = str(experiment_id_from_file).strip()
 
-        # 2. Query esgvoc with cleaned value
+        #  Query esgvoc with cleaned value
         reference_term = voc.get_term_in_collection(
             project_id=project_id,
             collection_id="experiment_id",
@@ -41,7 +41,7 @@ def check_experiment_consistency(ds, severity, project_id="cmip6"):
             ctx.add_failure(f"The experiment_id '{experiment_id_str}' was not found in the ESGF vocabulary.")
             return [ctx.to_result()]
 
-        # 3. Perform comparisons
+        # Perform comparisons
         failures = []
         
         # Comparison of ‘activity_id’ (case insensitive)

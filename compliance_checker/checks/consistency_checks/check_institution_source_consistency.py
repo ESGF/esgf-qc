@@ -23,11 +23,11 @@ def check_institution_consistency(ds, severity, project_id="cmip6"):
         return [ctx.to_result()]
 
     try:
-        # 1. Read attributes from the NetCDF file
+        # Read attributes from the NetCDF file
         institution_id = str(ds.getncattr("institution_id"))
         actual_institution = str(ds.getncattr("institution"))
 
-        # 2. Query esgvoc to get the reference specifications for the institution_id
+        # Query esgvoc to get the reference specifications for the institution_id
         reference_term = voc.get_term_in_collection(
             project_id=project_id,
             collection_id="institution_id",
@@ -38,7 +38,7 @@ def check_institution_consistency(ds, severity, project_id="cmip6"):
             ctx.add_failure(f"The institution_id '{institution_id}' was not found in the ESGF vocabulary.")
             return [ctx.to_result()]
 
-        # 3. Compare the 'institution' attribute with the 'description' from the CV
+        # Compare the 'institution' attribute with the 'description' from the CV
         expected_description = getattr(reference_term, 'description', None)
         
         if expected_description and actual_institution == expected_description:
@@ -71,11 +71,11 @@ def check_source_consistency(ds, severity, project_id="cmip6"):
         return [ctx.to_result()]
 
     try:
-        # 1. Read attributes from the NetCDF file
+        #  Read attributes from the NetCDF file
         source_id = str(ds.getncattr("source_id"))
         actual_institution_id = str(ds.getncattr("institution_id"))
 
-        # 2. Query esgvoc to get the reference specifications for the source_id
+        # Query esgvoc to get the reference specifications for the source_id
         reference_term = voc.get_term_in_collection(
             project_id=project_id,
             collection_id="source_id",
@@ -86,7 +86,7 @@ def check_source_consistency(ds, severity, project_id="cmip6"):
             ctx.add_failure(f"The source_id '{source_id}' was not found in the ESGF vocabulary.")
             return [ctx.to_result()]
 
-        # 3. Compare the file's 'institution_id' with the 'organisation_id' from the CV
+        #  Compare the file's 'institution_id' with the 'organisation_id' from the CV
         
         expected_org_ids = getattr(reference_term, 'organisation_id', [])
         

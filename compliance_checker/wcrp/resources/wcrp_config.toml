@@ -33,6 +33,7 @@ expected_type = "str"
 [global_attributes.description]
 severity = "M"
 expected_type = "str"
+constraint = " "
 
 [global_attributes.experiment_id]
 severity = "H"
@@ -150,7 +151,7 @@ constraint = " "
 [global_attributes.Conventions]
 severity = "H"
 expected_type = "str"
-constraint = " " 
+
 
 [global_attributes.contact]
 severity = "M"

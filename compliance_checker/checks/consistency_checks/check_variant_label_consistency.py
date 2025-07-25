@@ -23,11 +23,11 @@ def check_variant_label_consistency(ds, severity):
     ]
 
     try:
-        # --- 1. Read all required attributes from the NetCDF file ---
+        # ---  Read all required attributes from the NetCDF file ---
         attributes = {attr: ds.getncattr(attr) for attr in required_attrs}
         variant_label = attributes["variant_label"]
 
-        # --- 2. Parse the variant_label string using regex ---
+        # ---  Parse the variant_label string using regex ---
         match = re.match(r"r(\d+)i(\d+)p(\d+)f(\d+)", variant_label)
         
         if not match:
@@ -42,7 +42,7 @@ def check_variant_label_consistency(ds, severity):
             "forcing_index": int(match.group(4))
         }
 
-        # --- 3. Compare parsed values with attribute values ---
+        # --- Compare parsed values with attribute values ---
         failures = []
         for key, parsed_value in parsed_indices.items():
             attr_value = attributes[key]

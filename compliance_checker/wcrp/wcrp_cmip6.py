@@ -341,9 +341,10 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             if var_name not in all_vars_checked:
                 print(f"[DEBUG] Checking remaining var: {var_name}")
                 results.extend(check_variable_shape(var_name, ds, severity=self.get_severity("H")))
+                results.extend(check_bounds_value_consistency(ds, var_name, severity=self.get_severity("H")))
                 all_vars_checked.add(var_name)
         
-    # === Step 7 : Size bounds and vertices Checks ====
+    # === Step 7 : Size Checks for bounds and vertices ====
             
         for dim in remaining_dims:
             if dim in ["bnds","axis_nbounds"]:

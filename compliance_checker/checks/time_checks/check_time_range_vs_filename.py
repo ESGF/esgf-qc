@@ -4,7 +4,7 @@ from netCDF4 import num2date
 from ..consistency_checks.check_attributes_match_filename import _parse_filename_components
 
 def check_time_range_vs_filename(ds, severity=BaseCheck.MEDIUM):
-    check_id = "ZZZZjkdfd"
+    check_id = "VAR009"
     ctx = TestCtx(severity, f"[{check_id}] Check Time Range Filename")
 
     if "time" not in ds.variables:
@@ -66,9 +66,6 @@ def check_time_range_vs_filename(ds, severity=BaseCheck.MEDIUM):
         ctx.add_failure(f"Error interpreting datetime objects: {e}")
         return [ctx.to_result()]
     
-    # 🖨️ PRINTS DEBUG
-    print(f"[DEBUG] Filename time range: {start_str} to {end_str}")
-    print(f"[DEBUG] Time axis range   : {first.strftime('%Y-%m-%d')} to {last.strftime('%Y-%m-%d')}")
 
     if start_parts > expected_start or end_parts < expected_end:
         ctx.add_failure(
