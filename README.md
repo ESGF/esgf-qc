@@ -1,10 +1,17 @@
 # ESGF-QC
 This project is a QC framework that extends the IOOS Compliance Checker. We forked the IOOS Compliance Checker and are developing our own plugins to support specific checks relevant to our projects.
+## ESGF-QC Install
 
-## Running the IOOS Compliance Checker
-To run the IOOS Compliance Checker, use the following command:  
-compliance-checker --test=''check''  ''directory_path''  
+pip install git+https://github.com/ESGF/esgf-qc.git@Ipsl-Develop
+esgvoc config set universe:branch=esgvoc_dev
+esgvoc install
+
+
+## Running the ESGF-QC
+To run the ESGF-QC , use the following command:  
+esgqc --test=''check''  ''filepath''  
 Replace ''check'' with the name of the check suite you want to run (e.g., `cf:1.6`) and ''directory_path'' with the path to your netcdf files.
+example for CMIP6 : esgqc  --test=wcrp_cmip6:1.0  /home/anachite/Bureau/Datatest/DATA_QC/C3S-CMIP6/tos_Omon_NorESM2-MM_historical_r1i1p1f1_gn_201001-201412.nc 
 
 ## Quality Control Checks
 The checks are categorized into key areas, including :
@@ -94,4 +101,5 @@ The project is structured as follows:
 ├── cchecker.py  # CLI Entry Point (outside core package)
 ├── pyproject.toml  # Registers available plugins dynamically
 └── requirements.txt  # Dependencies
+
 

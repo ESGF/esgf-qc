@@ -19,6 +19,7 @@ from netCDF4 import Dataset
 from ..checks.consistency_checks.check_experiment_consistency import *
 from ..checks.variable_checks.check_variable_existence import check_variable_existence
 from ..checks.variable_checks.check_variable_shape_vs_dimensions import check_variable_shape
+from ..checks.variable_checks.check_bounds_value_consistency import check_bounds_value_consistency
 from ..checks.consistency_checks.check_drs_filename_cv import *
 from ..checks.consistency_checks.check_institution_source_consistency import *
 from ..checks.attribute_checks.check_attribute_suite import check_attribute_suite
@@ -323,7 +324,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
                 severity=self.get_severity("H")  
             ))
     # === Step 6: Shape verification for variables ===
-        print("\n[DEBUG] === Shape Check ===")
+        
         all_expected_vars = expected_dims + [variable_id]
         all_vars_checked = set()
 
@@ -332,6 +333,7 @@ class Cmip6ProjectCheck(WCRPBaseCheck):
             if var_name in ds.variables:
                 print(f"[DEBUG] Checking expected var: {var_name}")
                 results.extend(check_variable_shape(var_name, ds, severity=self.get_severity("H")))
+                results.extend(check_bounds_value_consistency(ds, var_name, severity=self.get_severity("H")))
                 all_vars_checked.add(var_name)
 
         # Remaining Variables size checks

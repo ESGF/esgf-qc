@@ -52,9 +52,6 @@ def check_time_bounds(ds, severity=BaseCheck.MEDIUM):
     lower, upper = bnds_var[:, 0], bnds_var[:, 1]
 
     outside = np.logical_or(time_vals < lower, time_vals > upper)
-    print("time_vals:", time_vals)
-    print("lower bounds:", lower)
-    print("upper bounds:", upper)
 
     if outside.any():
         idx = np.where(outside)[0][:5]   # show only first offenders
