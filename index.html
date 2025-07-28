@@ -12,7 +12,7 @@
       
       
       
-        <link rel="next" href="usage/">
+        <link rel="next" href="installation/">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -268,45 +268,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#what-is-it" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚙️ Install
+      What is it?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
+  <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quality-control-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      📖 Quality Control Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      📖 Documentation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contribution-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      🤝 Contribution Guidelines
+      Key Features
     </span>
   </a>
   
@@ -327,12 +300,122 @@
   
   
     <li class="md-nav__item">
+      <a href="installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="usage/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reporting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wcrp_cmip6_plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WCRP CMIP6 Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cf_plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CF Plugin
     
   </span>
   
@@ -369,45 +452,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#what-is-it" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚙️ Install
+      What is it?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
+  <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quality-control-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      📖 Quality Control Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      📖 Documentation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contribution-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      🤝 Contribution Guidelines
+      Key Features
     </span>
   </a>
   
@@ -433,43 +489,16 @@
 
 
 <h1 id="esgf-qc">ESGF-QC</h1>
-<p>This project is a QC framework that extends the IOOS Compliance Checker. We forked the IOOS Compliance Checker and are developing our own plugins to support specific checks relevant to WCRP projects.</p>
-<h2 id="install">⚙️ Install</h2>
-<p>To get ESGF-QC up and running, follow these steps:</p>
-<pre><code class="language-bash">pip install git+[https://github.com/ESGF/esgf-qc.git@main]
-</code></pre>
-<p>And then install Esgvoc and universe to get the Controlled Vocabulary.</p>
-<pre><code class="language-bash">esgvoc config set universe:branch=esgvoc_dev
-esgvoc install
-</code></pre>
-<h2 id="running-the-esgf-qc">🚀 Running the ESGF-QC</h2>
-<p>To run the ESGF-QC , use the following command:</p>
-<pre><code class="language-bash">esgqc --test=''check''  ''filepath'' 
-</code></pre>
-<p>Example for WCRP CMIP6 plugin : </p>
-<pre><code class="language-bash">esgqc  --test=wcrp_cmip6:1.0  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
-</code></pre>
-<h2 id="quality-control-checks">📖  Quality Control Checks</h2>
-<p>The checks are categorized into key areas, including :
-* <strong>Dimensional Integrity.</strong> Validation of dimensions like time, latitude, and longitude.
-* <strong>Metadata Validation:</strong> Ensuring attributes exist and comply with conventions and controlled vocabularies.
-* <strong>Temporal Consistency:</strong> Ensure different cheks in time.
-* <strong>Data Plausibility:</strong> Detecting outliers and ensuring values fall within expected ranges.
-* <strong>General Checks:</strong> Ensuring the overall structure, file integrity, and consistency between experiments.</p>
-<p>🔎 For a detailed account of the QC checks, we have compiled an inventory available in a Google Sheet. This document includes the categories, severity levels, and tools associated with each check. You can access the full inventory via the following link:
-🔗 https://docs.google.com/spreadsheets/d/15LytNx3qE7mvuCpyFYAsGFFKqzmm1MH_BoApoqbmLQk/edit?gid=1295657304#gid=1295657304</p>
-<h2 id="documentation">📖  Documentation</h2>
-<h2 id="contribution-guidelines">🤝 Contribution Guidelines</h2>
-<p>When contributing to this project, please follow these guidelines:</p>
+<p>Quality-control Framework  for WCRP projects, built on top of the IOOS Compliance Checker.</p>
+<hr />
+<h2 id="what-is-it">What is it?</h2>
+<p>ESGF-QC runs a set of <strong>atomic checks</strong> on NetCDF files to ensure they follow projects and conventions (WCRP/CMIP/CF...) rules (DRS paths, attributes, data, etc.).  </p>
+<h2 id="key-features">Key Features</h2>
 <ul>
-<li><strong>Check for Existing Implementations:</strong><ul>
-<li><strong>CF Convention:</strong> Check the google sheet table and identify the checks already covered by the CF plugin in the IOOS Compliance Checker. This will prevent us from duplicating effort and ensure consistency.</li>
-<li><strong>IOOS CC Functions:</strong> Before implementing a new check, please review the existing functions in the IOOS compliance checker to see if there are any relevant functions that can be reused or adapted to avoid redundancy.</li>
-</ul>
-</li>
-<li><strong>Error Handling:</strong> Use <code>try-except</code> blocks in your checks to handle potential errors gracefully and prevent the code from stopping unexpectedly.</li>
-<li><strong>WCRP Plugins:</strong> The checks you develop will be called in the project specific scripts under WCRP directory. If you're confident in your understanding of the implementation, you can directly act on the designated script and add your check call, otherwise you can mention it in the pull request and we can assist you in plugging it in.</li>
-<li><strong>Tests:</strong> For every new check file created, please add a corresponding test file in the <code>tests</code> directory to ensure the functionality and correctness of your checks.</li>
+<li><strong>Config-driven</strong>: TOML files decide which checks to run and how strict they are  </li>
+<li><strong>Modular checks</strong>: dimensions,attributes, variables, time, attributes, DRS and consistency, etc.  </li>
+<li><strong>Multiple outputs</strong>: text (CLI), HTML reports, Json/Json_new  </li>
+<li><strong>Extendable</strong>: easy to add new checks or whole project suites</li>
 </ul>
 
 

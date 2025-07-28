@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://esgf.github.io/esgf-qc/usage/">
+        <link rel="canonical" href="https://esgf.github.io/esgf-qc/reporting/">
       
       
-        <link rel="prev" href="../installation/">
+        <link rel="prev" href="../usage/">
       
       
-        <link rel="next" href="../reporting/">
+        <link rel="next" href="../checks/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Usage - ESGF-QC Documentation</title>
+        <title>Reporting - ESGF-QC Documentation</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#running-the-esgf-qc" class="md-skip">
+        <a href="#reporting" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage
+              Reporting
             
           </span>
         </div>
@@ -261,6 +261,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -270,13 +292,15 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   
   <span class="md-ellipsis">
-    Usage
+    Reporting
     
   </span>
   
@@ -289,7 +313,7 @@
   
   
   <span class="md-ellipsis">
-    Usage
+    Reporting
     
   </span>
   
@@ -302,6 +326,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -310,45 +336,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
+  <a href="#1-text-format-f-text" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
+      1. Text format (-f text)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-several-checks" class="md-nav__link">
+  <a href="#2-json-formats-f-json-f-json_new" class="md-nav__link">
     <span class="md-ellipsis">
-      Run several checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#save-output-to-a-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Save output to a file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skip / Include Specific WCRP_Project Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multiple files
+      2. JSON formats (-f json, -f json_new)
     </span>
   </a>
   
@@ -358,28 +357,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reporting/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Reporting
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -467,6 +444,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -475,45 +454,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
+  <a href="#1-text-format-f-text" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
+      1. Text format (-f text)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-several-checks" class="md-nav__link">
+  <a href="#2-json-formats-f-json-f-json_new" class="md-nav__link">
     <span class="md-ellipsis">
-      Run several checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#save-output-to-a-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Save output to a file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skip / Include Specific WCRP_Project Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multiple files
+      2. JSON formats (-f json, -f json_new)
     </span>
   </a>
   
@@ -538,45 +490,47 @@
   
 
 
-  <h1>Usage</h1>
+<h1 id="reporting">Reporting</h1>
+<p>This page explains what you get in each output format</p>
+<hr />
+<h2 id="1-text-format-f-text">1. Text format (<code>-f text</code>)</h2>
+<ul>
+<li><strong>Shows only problems by default</strong>. Passed checks are hidden.</li>
+<li>Ends with a short summary (e.g. <code>file.nc has X issues</code>).</li>
+</ul>
+<p><strong>Example snippet (terminal):</strong></p>
+<p align="center">
+  <a href="https://raw.githubusercontent.com/ESGF/esgf-qc/Ipsl-Develop/docs/img/Capture1.png" target="_blank">
+    <img src="https://raw.githubusercontent.com/ESGF/esgf-qc/Ipsl-Develop/docs/img/Capture1.png" width="900" alt="Text report example">
+  </a>
+</p>
 
-<h2 id="running-the-esgf-qc">🚀 Running the ESGF-QC</h2>
-<p>To run the ESGF-QC , use the following command:</p>
-<pre><code class="language-bash">esgqc --test=''check''  ''filepath'' 
-</code></pre>
-<p>Example for WCRP CMIP6 plugin : </p>
-<pre><code class="language-bash">esgqc  --test=wcrp_cmip6:1.0  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
-</code></pre>
+<h2 id="2-json-formats-f-json-f-json_new">2. JSON formats (<code>-f json</code>, <code>-f json_new</code>)</h2>
+<p><strong>Contains every check</strong> (PASS or FAIL) with its details and adds two global counters:</p>
 <ul>
-<li>If you don’t pass -f, the default output is text.</li>
-<li><strong>Output Formats</strong> : text ( default) / html / json (single input file only) / json_new (handles multiple files).</li>
+<li><code>scored_points</code> = Σ(passed_assertions × weight)</li>
+<li><code>possible_points</code> = Σ(total_assertions × weight)<ul>
+<li><strong>Weights</strong>: High = 3, Medium = 2, Low = 1.</li>
 </ul>
-<p>⚠️ <strong>CF plugin</strong>: Always run the CF checks as well when running the WCRP project checks, to ensure that CF-only checks (not duplicated in WCRP projects) are also verified.</p>
-<h2 id="run-several-checks"><strong>Run several checks</strong></h2>
-<pre><code class="language-bash">esgqc   --test=cf:1.11 --test=wcrp_cmip6:1.0 path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
-</code></pre>
-<h2 id="save-output-to-a-file"><strong>Save output to a file</strong></h2>
-<pre><code class="language-bash">esgqc --test=wcrp_cmip6:1.0 file.nc -f text(json/html) -o qc.txt(json/html)   
-</code></pre>
-<h2 id="skip-include-specific-wcrp_project-checks"><strong>Skip / Include Specific WCRP_Project Checks</strong></h2>
+</li>
+</ul>
+<p><strong>Severity lists:</strong></p>
 <ul>
-<li>Only use check names from the wcrp_project (wcrp_cmip6 for example) suite here.</li>
+<li><code>high_priorities</code>, <code>medium_priorities</code>, <code>low_priorities</code> → only the severities <strong>active for the chosen criteria</strong>.</li>
+<li><code>all_priorities</code> → shows all priorities related to the chosen criteria.</li>
 </ul>
-<p>To <strong>skip checks</strong> :</p>
-<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
-esgqc --test=wcrp_cmip6:1.0 file.nc -s  check_Global_Variable_Attributes
-</code></pre>
-<p>To <strong>include checks</strong> ( we do only checks belonging to this specific checks)</p>
-<pre><code class="language-bash"># Here we do only check_Drs_Vocabulary from WCRP CMIP6 Plugin for example
-esgqc --test=wcrp_cmip6:1.0 wcrp_cmip6:1.0 file.nc -i check_Drs_Vocabulary
-</code></pre>
-<h2 id="multiple-files"><strong>Multiple files</strong></h2>
+<p><strong>Criteria effect (-c)</strong>:</p>
 <ul>
-<li>Use shell wildcards/globs, and use <strong>json_new</strong> if you want one detailed JSON for all files:</li>
+<li><code>strict</code>: High + Medium + Low count in the decision.</li>
+<li><code>normal</code> (default): High + Medium count.</li>
+<li><code>lenient</code>: High only counts.</li>
 </ul>
-<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
-esgqc -t wcrp_cmip6 /data/CMIP6/**/*.nc -f json_new 
-</code></pre>
+<p><strong>Example snippet (terminal):</strong></p>
+<p align="center">
+  <a href="https://raw.githubusercontent.com/ESGF/esgf-qc/Ipsl-Develop/docs/img/Capture2.png" target="_blank">
+    <img src="https://raw.githubusercontent.com/ESGF/esgf-qc/Ipsl-Develop/docs/img/Capture2.png" width="900" alt="Text report example">
+  </a>
+</p>
 
 
 

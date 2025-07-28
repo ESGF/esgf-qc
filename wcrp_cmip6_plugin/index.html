@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://esgf.github.io/esgf-qc/usage/">
+        <link rel="canonical" href="https://esgf.github.io/esgf-qc/wcrp_cmip6_plugin/">
       
       
-        <link rel="prev" href="../installation/">
+        <link rel="prev" href="../checks/">
       
       
-        <link rel="next" href="../reporting/">
+        <link rel="next" href="../cf_plugin/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Usage - ESGF-QC Documentation</title>
+        <title>WCRP CMIP6 Plugin - ESGF-QC Documentation</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#running-the-esgf-qc" class="md-skip">
+        <a href="#the-wcrp-project-plugin" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage
+              WCRP CMIP6 Plugin
             
           </span>
         </div>
@@ -261,30 +261,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Usage
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
         
   
   
@@ -295,69 +275,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
-    <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-several-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Run several checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#save-output-to-a-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Save output to a file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skip / Include Specific WCRP_Project Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multiple files
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -410,10 +327,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../wcrp_cmip6_plugin/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    WCRP CMIP6 Plugin
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -424,6 +363,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What it does
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toml-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      TOML configuration files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key takeaway
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -467,6 +453,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -475,45 +463,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#running-the-esgf-qc" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Running the ESGF-QC
+      What it does
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-several-checks" class="md-nav__link">
+  <a href="#toml-configuration-files" class="md-nav__link">
     <span class="md-ellipsis">
-      Run several checks
+      TOML configuration files
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#save-output-to-a-file" class="md-nav__link">
+  <a href="#key-takeaway" class="md-nav__link">
     <span class="md-ellipsis">
-      Save output to a file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skip / Include Specific WCRP_Project Checks
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multiple files
+      Key takeaway
     </span>
   </a>
   
@@ -538,45 +508,37 @@
   
 
 
-  <h1>Usage</h1>
-
-<h2 id="running-the-esgf-qc">🚀 Running the ESGF-QC</h2>
-<p>To run the ESGF-QC , use the following command:</p>
-<pre><code class="language-bash">esgqc --test=''check''  ''filepath'' 
-</code></pre>
-<p>Example for WCRP CMIP6 plugin : </p>
-<pre><code class="language-bash">esgqc  --test=wcrp_cmip6:1.0  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
-</code></pre>
+<h1 id="the-wcrp-project-plugin">The <code>WCRP Project</code> Plugin</h1>
+<p>The WCRP plugin rely on the wcrp_project.py file, which acts as the “conductor” for WCRP projects ((CMIP6 for Beta release, CMIP7, CORDEX, etc. soon)  that calls all the small atomic checks and decides which ones to run, with which severity.</p>
+<hr />
+<h2 id="what-it-does">What it does</h2>
 <ul>
-<li>If you don’t pass -f, the default output is text.</li>
-<li><strong>Output Formats</strong> : text ( default) / html / json (single input file only) / json_new (handles multiple files).</li>
+<li><strong>Loads a configuration file</strong> (<code>wcrp_config.toml</code>) that lists:</li>
+<li>Which checks to run (DRS, attributes, variables, time, etc.)</li>
+<li>The severity/priority of each check (High ''Mandatory''/ Medium ''Optional'' /Low ''Warning'' )</li>
+<li><strong>Runs the atomic checks</strong> implemented in <code>compliance_checker/checks/…</code></li>
+<li>Example: dimension existence/size, variable shape, time bounds, filename/DRS consistency, etc.</li>
+<li><strong>Aggregates results</strong> and returns them to the Compliance Checker core, which formats them (text, html, json…).</li>
 </ul>
-<p>⚠️ <strong>CF plugin</strong>: Always run the CF checks as well when running the WCRP project checks, to ensure that CF-only checks (not duplicated in WCRP projects) are also verified.</p>
-<h2 id="run-several-checks"><strong>Run several checks</strong></h2>
-<pre><code class="language-bash">esgqc   --test=cf:1.11 --test=wcrp_cmip6:1.0 path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
-</code></pre>
-<h2 id="save-output-to-a-file"><strong>Save output to a file</strong></h2>
-<pre><code class="language-bash">esgqc --test=wcrp_cmip6:1.0 file.nc -f text(json/html) -o qc.txt(json/html)   
-</code></pre>
-<h2 id="skip-include-specific-wcrp_project-checks"><strong>Skip / Include Specific WCRP_Project Checks</strong></h2>
+<hr />
+<h2 id="toml-configuration-files">TOML configuration files</h2>
 <ul>
-<li>Only use check names from the wcrp_project (wcrp_cmip6 for example) suite here.</li>
+<li>
+<p><strong><code>wcrp_config.toml</code></strong><br />
+  Tells the plugin <em>what to verify</em> and <em>how strict to be</em>. It’s essentially a checklist with severities.</p>
+</li>
+<li>
+<p><strong><code>mapping_variables.toml</code></strong><br />
+  Temporary helper that maps <code>&lt;table_id&gt;.&lt;variable_id&gt;</code> to an intermediate “universe”/registry name so we can grab expected info (dimensions, cell_methods, etc.).<br />
+<strong>This is a stop‑gap</strong> until the necessary information is fully exposed in the ESGVOC vocabulary.</p>
+</li>
 </ul>
-<p>To <strong>skip checks</strong> :</p>
-<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
-esgqc --test=wcrp_cmip6:1.0 file.nc -s  check_Global_Variable_Attributes
-</code></pre>
-<p>To <strong>include checks</strong> ( we do only checks belonging to this specific checks)</p>
-<pre><code class="language-bash"># Here we do only check_Drs_Vocabulary from WCRP CMIP6 Plugin for example
-esgqc --test=wcrp_cmip6:1.0 wcrp_cmip6:1.0 file.nc -i check_Drs_Vocabulary
-</code></pre>
-<h2 id="multiple-files"><strong>Multiple files</strong></h2>
+<hr />
+<h2 id="key-takeaway">Key takeaway</h2>
 <ul>
-<li>Use shell wildcards/globs, and use <strong>json_new</strong> if you want one detailed JSON for all files:</li>
+<li>The plugin itself doesn’t “do” heavy validation logic—<strong>it orchestrates</strong> the atomic checks using a <strong>config-driven</strong> approach.</li>
+<li>The variable mapping to the “universe” is <strong>temporary</strong>; the goal is to rely directly on ESGVOC vocabularies in the near future.</li>
 </ul>
-<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
-esgqc -t wcrp_cmip6 /data/CMIP6/**/*.nc -f json_new 
-</code></pre>
 
 
 
