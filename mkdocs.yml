@@ -1,0 +1,13 @@
+site_name: ESGF-QC Documentation
+site_url: https://esgf.github.io/esgf-qc
+
+theme:
+  name: material
+
+repo_name: esgf/esgf-qc
+repo_url: https://github.com/esgf/esgf-qc
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+
