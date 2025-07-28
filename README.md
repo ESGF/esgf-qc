@@ -37,6 +37,8 @@ The checks are categorized into key areas, including :
 🔗 https://docs.google.com/spreadsheets/d/15LytNx3qE7mvuCpyFYAsGFFKqzmm1MH_BoApoqbmLQk/edit?gid=1295657304#gid=1295657304
 ## 📖  Documentation
 
+You can find the full ESGF-QC documentation at : 
+🔗https://esgf.github.io/esgf-qc/
 
 ## 🤝 Contribution Guidelines
 

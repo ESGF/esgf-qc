@@ -7,10 +7,10 @@ The WCRP plugin rely on the wcrp_project.py file, which acts as the “conductor
 
 - **Loads a configuration file** (`wcrp_config.toml`) that lists:
   - Which checks to run (DRS, attributes, variables, time, etc.)
-  - The severity/priority of each check (High'Mandatory'/Medium'Optional'/Low'Warning')
+  - The severity/priority of each check (High ''Mandatory''/ Medium ''Optional'' /Low ''Warning'' )
 - **Runs the atomic checks** implemented in `compliance_checker/checks/…`
   - Example: dimension existence/size, variable shape, time bounds, filename/DRS consistency, etc.
-- **Aggregates results** and returns them to the Compliance Checker core, which formats them (text, HTML, JSON…).
+- **Aggregates results** and returns them to the Compliance Checker core, which formats them (text, html, json…).
 
 ---
 

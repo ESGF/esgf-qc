@@ -92,7 +92,7 @@ severity = "H"
 expected_type = "str"
 
 [global_attributes.tracking_id]
-severity = "H"
+severity = "L"
 expected_type = "str"
 
 [global_attributes.variable_id]

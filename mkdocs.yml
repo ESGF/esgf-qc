@@ -3,11 +3,16 @@ site_url: https://esgf.github.io/esgf-qc
 
 theme:
   name: material
-
+markdown_extensions:
+  - attr_list
 repo_name: esgf/esgf-qc
 repo_url: https://github.com/esgf/esgf-qc
 
 nav:
   - Home: index.md
+  - Install : installation.md
   - Usage: usage.md
-
+  - Reporting : reporting.md
+  - Checks : checks.md
+  - WCRP CMIP6 Plugin : wcrp_cmip6_plugin.md
+  - CF Plugin : cf_plugin.md

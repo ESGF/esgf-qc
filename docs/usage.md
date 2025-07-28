@@ -11,10 +11,13 @@ esgqc  --test=wcrp_cmip6:1.0  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/histo
 ```
 - If you don’t pass -f, the default output is text.
 - **Output Formats** : text ( default) / html / json (single input file only) / json_new (handles multiple files).
-  
+
+⚠️ **CF plugin**: Always run the CF checks as well when running the WCRP project checks, to ensure that CF-only checks (not duplicated in WCRP projects) are also verified.
+
+
 ##**Run several checks** 
 ```bash
-esgqc  --test=wcrp_cmip6:1.0 --test=cf:1.11  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
+esgqc   --test=cf:1.11 --test=wcrp_cmip6:1.0 path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
 ```
 
 ##**Save output to a file**
