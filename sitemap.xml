@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://esgf.github.io/esgf-qc/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
+    </url>
+    <url>
+         <loc>https://esgf.github.io/esgf-qc/cf_feature_parity_matrix/</loc>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/cf_plugin/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/checks/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/installation/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/reporting/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/usage/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/wcrp_cmip6_plugin/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/source/development/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/source/faq/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://esgf.github.io/esgf-qc/source/readme_link/</loc>
-         <lastmod>2025-07-28</lastmod>
+         <lastmod>2025-07-29</lastmod>
     </url>
 </urlset>
