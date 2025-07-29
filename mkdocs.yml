@@ -14,5 +14,6 @@ nav:
   - Usage: usage.md
   - Reporting : reporting.md
   - Checks : checks.md
-  - WCRP CMIP6 Plugin : wcrp_cmip6_plugin.md
+  - WCRP Project Plugin : wcrp_cmip6_plugin.md
   - CF Plugin : cf_plugin.md
+  - Credit : credits.md

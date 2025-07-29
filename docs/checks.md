@@ -5,19 +5,19 @@ ESGF-QC is built from many **atomic checks**, grouped by category. The plugin ju
 ---
 
 ## Dimension Checks
-Verify that required dimensions **exist**, have a **positive/expected size**, and match the declared shapes of variables.
+Verify that required dimensions exist, have a positive/expected size, and match the declared shapes of variables.
 
 ## Variable Checks
-Ensure variables are **present**, their **shape matches their dimensions**, and (when bounds are declared) each value lies **within its bounds**.
+Ensure variables are present, their shape matches their dimensions, and (when bounds are declared) each value lies **within its bounds**.
 
 ## Time Checks
-Focus on the `time` axis: presence of bounds with the right shape, and **consistency between the time axis and the filename’s time range**.
+Focus on the `time` axis: presence of bounds with the right shape, and consistency between the time axis and the filename’s time range.
 
 ## Attribute Checks
-Check that mandatory **global and variable attributes** are there, correctly typed/encoded, and their values are valid against regex patterns or controlled vocabularies.
+Check that mandatory global and variable attributes are there, correctly typed/encoded, and their values are valid against regex patterns or controlled vocabularies.
 
 ## DRS & Consistency Checks
-Validate **filenames and directory paths** and compare with the netcdf file's attributes; verify consistency between attributes like **frequency vs table_id**, `experiment_id`, `institution`, `variant_label`, etc., against project rules/CVs.
+Validate filenames and directory paths and compare with the netcdf file's attributes; verify consistency between attributes like **frequency vs table_id**, `experiment_id`, `institution`, `variant_label`, etc., against project rules/CVs.
 
 
 ---

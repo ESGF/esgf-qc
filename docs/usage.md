@@ -1,5 +1,3 @@
-
-
 ## 🚀 Running the ESGF-QC
 To run the ESGF-QC , use the following command:
 ```bash  
@@ -38,6 +36,10 @@ To **include checks** ( we do only checks belonging to this specific checks)
 ```bash
 # Here we do only check_Drs_Vocabulary from WCRP CMIP6 Plugin for example
 esgqc --test=wcrp_cmip6:1.0 wcrp_cmip6:1.0 file.nc -i check_Drs_Vocabulary
+```
+To **list all available checks**
+```bash
+esgqc -l 
 ```
 
 ##**Multiple files**

@@ -1,6 +1,6 @@
 # CF Plugin (IOOS Compliance Checker)
 
-The IOOS Compliance Checker ships with a native **CF (Climate & Forecast) metadata plugin**. Many of those CF checks are **directly relevant to WCRP projects** (CMIP, CORDEX, …). To avoid redundancy, we **did not duplicate** these validations inside ESGF-QC.
+The IOOS Compliance Checker ships with a native **CF (Climate & Forecast) metadata plugin**. Many of those CF checks are directly relevant to WCRP projects (CMIP, CORDEX, …). To avoid redundancy, we **did not duplicate** these validations inside ESGF-QC.
 
 ---
 

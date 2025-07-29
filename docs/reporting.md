@@ -27,7 +27,7 @@ This page explains what you get in each output format
 
 **Severity lists:**
   
-  - `high_priorities`, `medium_priorities`, `low_priorities` → only the severities **active for the chosen criteria**.
+  - `high_priorities`, `medium_priorities`, `low_priorities` → only the severities active for the chosen criteria.
   - `all_priorities` → shows all priorities related to the chosen criteria.
 
 

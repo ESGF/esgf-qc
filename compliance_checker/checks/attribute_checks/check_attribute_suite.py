@@ -81,7 +81,7 @@ def check_attribute_suite(
         all_results.append(utf8_ctx.to_result())
 
     # --- Check 4: Vocabulary ( Esgvoc/Universe ) or Regex Check(ATTR004) ---
-    MULTI_TERM_ATTRIBUTES = {"source_type", "realm", "activity_id"}
+    MULTI_TERM_ATTRIBUTES = {"source_type", "realm", "activity_id", "Conventions"}
     if constraint is None and isinstance(attr_value, str) and expected_type == "str" and project_name:
         vocab_ctx = TestCtx(severity, label("ATTR004", "ESGVOC Vocabulary Check"))
         try:
@@ -95,7 +95,7 @@ def check_attribute_suite(
                 if not voc.valid_term_in_collection(       
                     value=val,
                     project_id=project_name,
-                    collection_id=attribute_name
+                    collection_id=attribute_name.lower()
                 ):
                     invalid_values.append(val)   
             if not invalid_values:

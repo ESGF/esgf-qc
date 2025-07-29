@@ -4,18 +4,27 @@
 project_name = "wcrp_cmip6"
 project_version = "1.0"
 
-# ------------------------------------------------------------------------------
-# Global Attributes to check 
-# This section lists required  NetCDF global attributes for CMIP6 QC.
-# Each entry defines:
-#   - severity: "H" (High) (Mandatory) , "M" (Medium) (Warning), or "L" (Low) (Optional) priority
-#   - expected_type: expected value type ("str", "int", "float")
-#   - constraint: used only when the attribute is not value-controlled by CMIP6 CV 
+#------------------------------------------------------------------------------
+# DRS Checks
 # ------------------------------------------------------------------------------
 
 [drs_checks]
 severity = "H"
 
+[drs_consistency_checks]
+severity = "H"
+
+#------------------------------------------------------------------------------
+# Global Attributes to check 
+# This section lists required  NetCDF global attributes for CMIP6 QC.
+# Each entry defines:
+#   - severity: "H" (High) (Mandatory) , "M" (Medium) (Warning), or "L" (Low) (Optional) priority
+#   - expected_type: expected value type ("str", "int", "float")
+# The 'constraint' key provides intelligent control over value validation:
+#   - If 'constraint' is MISSING: A controlled vocabulary (ESG-VOC) check is performed by default (ATTR004).
+#   - If 'constraint' HAS A VALUE (e.g., ".*@.*"): A regular expression pattern match is performed instead (ATTR005).
+#   - If 'constraint' is PRESENT but EMPTY (e.g., constraint = ""): All value checks (vocabulary and pattern) are DISABLED for that attribute.
+# ------------------------------------------------------------------------------
 
 [global_attributes.activity_id]
 severity = "H"
@@ -146,7 +155,7 @@ severity = "H"
 expected_type = "str"
 constraint = " " 
 
-[global_attributes.conventions]
+[global_attributes.Conventions]
 severity = "H"
 expected_type = "str"
 
@@ -178,19 +187,16 @@ severity = "L"
 expected_type = "str"
 constraint = " " 
 # ==============================================================================
-# == Checks for Dimension Values
+# == Checks Variable registry
 # ==============================================================================
 #To activate Variable regisrty checks
 [variable_registry_checks]
 severity = "H"
+
 # ==============================================================================
 # == Consistency Checks
 # ==============================================================================
 
-[drs_consistency_checks]
-  severity = "H"
-[freq_table_id_consistency_checks]
-  severity = "H"
 [consistency_checks]
   [consistency_checks.variant_label]
   severity = "H"
@@ -205,6 +211,9 @@ severity = "H"
   [consistency_checks.source_details]
   severity = "H"
 
+# Check frequency and table_id consistency via tha mapping below
+[freq_table_id_consistency_checks]
+severity = "H"
 
 
 # ==============================================================================
