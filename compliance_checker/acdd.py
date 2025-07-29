@@ -13,7 +13,7 @@ import pendulum
 from cftime import num2pydate
 from pygeoif import from_wkt
 
-from compliance_checker import cfutil
+import compliance_checker.cf.util as cfutil
 from compliance_checker.base import (
     BaseCheck,
     BaseNCCheck,
@@ -694,7 +694,7 @@ class ACDD1_1Check(ACDDNCCheck):
                 "publisher_name",  # publisher,dataCenter
                 "publisher_url",  # publisher
                 "publisher_email",  # publisher
-                "geospatial_vertical_positive",
+                ("geospatial_vertical_positive", ["up", "down"]),
             ],
         )
 
@@ -710,7 +710,7 @@ class ACDD1_3Check(ACDDNCCheck):
 
         self.rec_atts.extend(
             [
-                "geospatial_vertical_positive",
+                ("geospatial_vertical_positive", ["up", "down"]),
                 "geospatial_bounds_crs",
                 "geospatial_bounds_vertical_crs",
                 "publisher_name",  # publisher,dataCenter

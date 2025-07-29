@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from compliance_checker import cfutil  # noqa: F401
+import compliance_checker.cf.util as cfutil  # noqa: F401
 from compliance_checker.base import (  # noqa: F401
     BaseCheck,
     BaseNCCheck,
@@ -31,3 +31,5 @@ from compliance_checker.cf.cf_1_6 import CF1_6Check  # noqa: F401
 from compliance_checker.cf.cf_1_7 import CF1_7Check  # noqa: F401
 from compliance_checker.cf.cf_1_8 import CF1_8Check  # noqa: F401
 from compliance_checker.cf.cf_1_9 import CF1_9Check  # noqa: F401
+from compliance_checker.cf.cf_1_10 import CF1_10Check  # noqa: F401
+from compliance_checker.cf.cf_1_11 import CF1_11Check  # noqa: F401

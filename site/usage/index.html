@@ -11,8 +11,10 @@
         <link rel="canonical" href="https://esgf.github.io/esgf-qc/usage/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../installation/">
       
+      
+        <link rel="next" href="../reporting/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -237,6 +239,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -294,10 +318,134 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#run-several-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run several checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#save-output-to-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save output to a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skip / Include Specific WCRP_Project Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple files
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reporting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wcrp_cmip6_plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WCRP CMIP6 Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cf_plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CF Plugin
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -335,6 +483,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#run-several-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run several checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#save-output-to-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save output to a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skip-include-specific-wcrp_project-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skip / Include Specific WCRP_Project Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple files
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -362,6 +546,36 @@
 </code></pre>
 <p>Example for WCRP CMIP6 plugin : </p>
 <pre><code class="language-bash">esgqc  --test=wcrp_cmip6:1.0  path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
+</code></pre>
+<ul>
+<li>If you don’t pass -f, the default output is text.</li>
+<li><strong>Output Formats</strong> : text ( default) / html / json (single input file only) / json_new (handles multiple files).</li>
+</ul>
+<p>⚠️ <strong>CF plugin</strong>: Always run the CF checks as well when running the WCRP project checks, to ensure that CF-only checks (not duplicated in WCRP projects) are also verified.</p>
+<h2 id="run-several-checks"><strong>Run several checks</strong></h2>
+<pre><code class="language-bash">esgqc   --test=cf:1.11 --test=wcrp_cmip6:1.0 path/to/data/CMIP6/CMIP/IPSL/IPSL-CM5A2-INCA/historical/r1i1p1f1/Amon/pr/gr/v20240619/pr_Amon_IPSL-CM5A2-INCA_historical_r1i1p1f1_gr_185001-201412.nc
+</code></pre>
+<h2 id="save-output-to-a-file"><strong>Save output to a file</strong></h2>
+<pre><code class="language-bash">esgqc --test=wcrp_cmip6:1.0 file.nc -f text(json/html) -o qc.txt(json/html)   
+</code></pre>
+<h2 id="skip-include-specific-wcrp_project-checks"><strong>Skip / Include Specific WCRP_Project Checks</strong></h2>
+<ul>
+<li>Only use check names from the wcrp_project (wcrp_cmip6 for example) suite here.</li>
+</ul>
+<p>To <strong>skip checks</strong> :</p>
+<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
+esgqc --test=wcrp_cmip6:1.0 file.nc -s  check_Global_Variable_Attributes
+</code></pre>
+<p>To <strong>include checks</strong> ( we do only checks belonging to this specific checks)</p>
+<pre><code class="language-bash"># Here we do only check_Drs_Vocabulary from WCRP CMIP6 Plugin for example
+esgqc --test=wcrp_cmip6:1.0 wcrp_cmip6:1.0 file.nc -i check_Drs_Vocabulary
+</code></pre>
+<h2 id="multiple-files"><strong>Multiple files</strong></h2>
+<ul>
+<li>Use shell wildcards/globs, and use <strong>json_new</strong> if you want one detailed JSON for all files:</li>
+</ul>
+<pre><code class="language-bash"># Here we skip check_Global_Variable_Attributes from WCRP CMIP6 Plugin for example
+esgqc -t wcrp_cmip6 /data/CMIP6/**/*.nc -f json_new 
 </code></pre>
 
 

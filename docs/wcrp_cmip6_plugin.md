@@ -1,5 +1,5 @@
 # The `WCRP Project` Plugin 
-The WCRP plugin rely on the wcrp_project.py file, which acts as the “conductor” for WCRP projects ((CMIP6 for Beta release, CMIP7, CORDEX, etc. soon)  that calls all the small atomic checks and decides which ones to run, with which severity.
+The WCRP plugin rely on the wcrp_project.py file, which acts as the “conductor” for WCRP projects (CMIP6 for Beta release, CMIP7, CORDEX, etc. soon)  that calls all the small atomic checks and decides which ones to run, with which severity.
 
 ---
 

@@ -146,7 +146,7 @@ severity = "H"
 expected_type = "str"
 constraint = " " 
 
-[global_attributes.Conventions]
+[global_attributes.conventions]
 severity = "H"
 expected_type = "str"
 

@@ -6,7 +6,7 @@ Quality-control Framework  for WCRP projects, built on top of the IOOS Complianc
 
 ## What is it?
 
-ESGF-QC runs a set of **atomic checks** on NetCDF files to ensure they follow projects and conventions (WCRP/CMIP/CF...) rules (DRS paths, attributes, data, etc.).  
+ESGF-QC runs a set of **plugins** on NetCDF files to ensure they follow projects and conventions (WCRP/CMIP/Cf/Copernicus...) rules (DRS paths, attributes, data, etc.).  
 
 
 
