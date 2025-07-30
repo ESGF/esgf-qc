@@ -450,6 +450,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Credit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -569,6 +591,9 @@ esgqc --test=wcrp_cmip6:1.0 file.nc -s  check_Global_Variable_Attributes
 <p>To <strong>include checks</strong> ( we do only checks belonging to this specific checks)</p>
 <pre><code class="language-bash"># Here we do only check_Drs_Vocabulary from WCRP CMIP6 Plugin for example
 esgqc --test=wcrp_cmip6:1.0 wcrp_cmip6:1.0 file.nc -i check_Drs_Vocabulary
+</code></pre>
+<p>To <strong>list all available checks</strong></p>
+<pre><code class="language-bash">esgqc -l 
 </code></pre>
 <h2 id="multiple-files"><strong>Multiple files</strong></h2>
 <ul>
